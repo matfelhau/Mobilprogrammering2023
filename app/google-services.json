@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "646101366222",
+    "project_id": "matapp-916b3",
+    "storage_bucket": "matapp-916b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:646101366222:android:8e5307a0c570c3a45d279f",
+        "android_client_info": {
+          "package_name": "com.example.matapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOJF6zSsWmaYt3JJKgHp9jcgNPTdA7Emg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
