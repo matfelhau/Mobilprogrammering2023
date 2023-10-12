@@ -33,7 +33,7 @@ class LogInActivity : AppCompatActivity() {
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, DashboardActivity::class.java)
+                        val intent = Intent(this, ForYouActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else {
