@@ -1,23 +1,125 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
-
     <TextView
-        android:id="@+id/titleTextView"
+        android:id="@+id/titleForYou"
+        android:layout_width="106dp"
+        android:layout_height="41dp"
+        android:text="For You"
+        android:textSize="30sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/youMightLike"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
+        android:ems="10"
+        android:inputType="text"
+        android:text="You might like:"
+        app:layout_constraintTop_toBottomOf="@+id/titleForYou"
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageButton
+        android:id="@+id/imageButtonSearch"
+        android:layout_width="62dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="-36dp"
+        app:layout_constraintStart_toEndOf="@id/imageButtonForYou"
+        app:layout_constraintTop_toBottomOf="@id/imageButtonForYou"
+        app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
+
+    <TextView
+        android:id="@+id/textSearch"
+        android:layout_width="62dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="-62dp"
+        android:layout_marginTop="572dp"
+        android:text="Search"
+        app:layout_constraintStart_toEndOf="@+id/imageButtonSearch"
+        app:layout_constraintTop_toBottomOf="@+id/youMightLike" />
+
+    <ImageButton
+        android:id="@+id/imageButtonSaved"
+        android:layout_width="62dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="-36dp"
+        app:layout_constraintStart_toEndOf="@id/imageButtonSearch"
+        app:layout_constraintTop_toBottomOf="@id/imageButtonSearch"
+        app:srcCompat="@android:drawable/ic_input_get" />
+
+    <TextView
+        android:id="@+id/textSaved"
+        android:layout_width="62dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="-62dp"
+        android:layout_marginTop="572dp"
+        android:text="Saved"
+        app:layout_constraintStart_toEndOf="@+id/imageButtonSaved"
+        app:layout_constraintTop_toBottomOf="@+id/youMightLike" />
+
+    <ImageButton
+        android:id="@+id/imageButtonSettings"
+        android:layout_width="62dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="-36dp"
+        app:layout_constraintStart_toEndOf="@id/imageButtonSaved"
+        app:layout_constraintTop_toBottomOf="@id/imageButtonSaved"
+        app:srcCompat="@android:drawable/ic_menu_manage" />
+
+    <TextView
+        android:id="@+id/textSettings"
+        android:layout_width="62dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="-62dp"
+        android:layout_marginTop="572dp"
+        android:text="Settings"
+        app:layout_constraintStart_toEndOf="@+id/imageButtonSettings"
+        app:layout_constraintTop_toBottomOf="@+id/youMightLike" />
+
+    <ImageButton
+        android:id="@+id/imageButtonForYou"
+        android:layout_width="62dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="-190dp"
+        android:layout_marginTop="524dp"
+        app:layout_constraintStart_toEndOf="@id/youMightLike"
+        app:layout_constraintTop_toBottomOf="@+id/youMightLike"
+        app:srcCompat="@android:drawable/ic_menu_myplaces" />
+
+    <TextView
+        android:id="@+id/textForYou"
+        android:layout_width="62dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="-62dp"
+        android:layout_marginTop="572dp"
+        android:text="For You"
+        app:layout_constraintTop_toBottomOf="@+id/youMightLike"
+        app:layout_constraintStart_toEndOf="@+id/imageButtonForYou" />
+
+    <ImageButton
+        android:id="@+id/imageButton8"
+        android:layout_width="46dp"
+        android:layout_height="37dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_sort_by_size" />
+
+    <ImageButton
+        android:id="@+id/imageButton9"
+        android:layout_width="46dp"
+        android:layout_height="37dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -43,6 +43,8 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="time_to_make_format">Time to make beef stroganoff: %s</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_database_test">DatabaseTestActivity</string>
 </resources>
