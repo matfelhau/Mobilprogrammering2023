@@ -1,12 +1,13 @@
 package com.example.matapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.matapp.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import android.widget.Toast
 
-class MainActivity : AppCompatActivity() {
+class LogInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
@@ -33,6 +34,9 @@ class MainActivity : AppCompatActivity() {
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, DashboardActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     } else {
                         Toast.makeText(this, "Fail!: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
 
