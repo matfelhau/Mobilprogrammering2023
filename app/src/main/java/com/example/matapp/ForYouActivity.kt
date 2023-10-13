@@ -37,6 +37,12 @@ class ForYouActivity : ComponentActivity() {
             finish()
         }
 
+        binding.imageButtonSettings.setOnClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
 
     }
 }
