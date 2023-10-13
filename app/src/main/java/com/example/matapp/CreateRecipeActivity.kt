@@ -1,19 +1,15 @@
 package com.example.matapp
 
-import android.R
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.Spinner
 import androidx.activity.ComponentActivity
-import com.example.matapp.databinding.ActivitySearchBinding
-
+import com.example.matapp.databinding.ActivityCreaterecipeBinding
 
 class CreateRecipeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = ActivitySearchBinding.inflate(layoutInflater)
+        val binding = ActivityCreaterecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.imageButtonSearch.setOnClickListener {
@@ -39,8 +35,5 @@ class CreateRecipeActivity : ComponentActivity() {
             startActivity(intent)
             finish()
         }
-
     }
-
-
 }

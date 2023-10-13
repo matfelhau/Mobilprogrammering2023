@@ -18,13 +18,18 @@ class SettingsActivity : ComponentActivity() {
         val binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.imageButtonHamburgerMenu.setOnClickListener {
+            val intent = Intent(this, CreateRecipeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         binding.logOutButton.setOnClickListener {
             auth.signOut()
             val intent = Intent(this, LogInActivity::class.java)
             startActivity(intent)
             finish()
         }
-
 
         binding.imageButtonSearch.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)

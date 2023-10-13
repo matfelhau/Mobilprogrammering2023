@@ -12,6 +12,11 @@ class ForYouActivity : ComponentActivity() {
         val binding = ActivityForyouBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.imageButtonHamburgerMenu.setOnClickListener {
+            val intent = Intent(this, CreateRecipeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         binding.imageButtonSearch.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
@@ -36,12 +41,5 @@ class ForYouActivity : ComponentActivity() {
             startActivity(intent)
             finish()
         }
-
-        binding.imageButtonHamburgerMenu.setOnClickListener {
-            val intent = Intent(this, CreateRecipeActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
     }
 }

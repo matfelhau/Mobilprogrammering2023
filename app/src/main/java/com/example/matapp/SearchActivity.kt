@@ -10,10 +10,15 @@ import com.example.matapp.ui.theme.MatappTheme
 class SearchActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search)
 
         val binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.imageButtonHamburgerMenu.setOnClickListener {
+            val intent = Intent(this, CreateRecipeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         binding.imageButtonSearch.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
@@ -38,6 +43,5 @@ class SearchActivity : ComponentActivity() {
             startActivity(intent)
             finish()
         }
-
     }
 }
