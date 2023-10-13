@@ -17,7 +17,7 @@
             android:layout_width="110dp"
             android:layout_height="41dp"
             android:layout_marginTop="4dp"
-            android:text="Settings"
+            android:text="@string/settings"
             android:gravity="center"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +33,8 @@
             android:layout_marginTop="-36dp"
             app:layout_constraintStart_toEndOf="@id/imageButtonForYou"
             app:layout_constraintTop_toBottomOf="@id/imageButtonForYou"
-            android:src="?android:attr/actionModeWebSearchDrawable" />
+            android:src="?android:attr/actionModeWebSearchDrawable"
+            android:contentDescription="@string/search_icon_nav_bar" />
 
         <TextView
             android:id="@+id/textSearch"
@@ -41,7 +42,7 @@
             android:layout_height="23dp"
             android:layout_marginStart="-62dp"
             android:layout_marginTop="632dp"
-            android:text="Search"
+            android:text="@string/search"
             android:gravity="center"
             app:layout_constraintStart_toEndOf="@+id/imageButtonSearch"
             app:layout_constraintTop_toBottomOf="@+id/titleForYou" />
@@ -54,7 +55,8 @@
             android:layout_marginTop="-36dp"
             app:layout_constraintStart_toEndOf="@id/imageButtonSearch"
             app:layout_constraintTop_toBottomOf="@id/imageButtonSearch"
-            android:src="@android:drawable/ic_input_get" />
+            android:src="@android:drawable/ic_input_get"
+            android:contentDescription="@string/saved_button_icon_nav_bar" />
 
         <TextView
             android:id="@+id/textSaved"
@@ -62,7 +64,7 @@
             android:layout_height="23dp"
             android:layout_marginStart="-62dp"
             android:layout_marginTop="632dp"
-            android:text="Saved"
+            android:text="@string/saved"
             android:gravity="center"
             app:layout_constraintStart_toEndOf="@+id/imageButtonSaved"
             app:layout_constraintTop_toBottomOf="@+id/titleForYou" />
@@ -75,7 +77,8 @@
             android:layout_marginTop="-36dp"
             app:layout_constraintStart_toEndOf="@id/imageButtonSaved"
             app:layout_constraintTop_toBottomOf="@id/imageButtonSaved"
-            android:src="@android:drawable/ic_menu_manage" />
+            android:src="@android:drawable/ic_menu_manage"
+            android:contentDescription="@string/settings_button_icon_nav_bar" />
 
         <TextView
             android:id="@+id/textSettings"
@@ -83,7 +86,7 @@
             android:layout_height="23dp"
             android:layout_marginStart="-62dp"
             android:layout_marginTop="632dp"
-            android:text="Settings"
+            android:text="@string/settings"
             android:gravity="center"
             app:layout_constraintStart_toEndOf="@+id/imageButtonSettings"
             app:layout_constraintTop_toBottomOf="@+id/titleForYou" />
@@ -96,7 +99,8 @@
             android:layout_marginTop="596dp"
             app:layout_constraintStart_toEndOf="@id/titleForYou"
             app:layout_constraintTop_toBottomOf="@+id/titleForYou"
-            android:src="@android:drawable/ic_menu_myplaces" />
+            android:src="@android:drawable/ic_menu_myplaces"
+            android:contentDescription="@string/for_you_button_icon_nav_bar" />
 
         <TextView
             android:id="@+id/textForYou"
@@ -104,7 +108,7 @@
             android:layout_height="23dp"
             android:layout_marginStart="-62dp"
             android:layout_marginTop="632dp"
-            android:text="For You"
+            android:text="@string/for_you"
             android:gravity="center"
             app:layout_constraintStart_toEndOf="@+id/imageButtonForYou"
             app:layout_constraintTop_toBottomOf="@+id/titleForYou" />
@@ -115,7 +119,8 @@
             android:layout_height="37dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:src="@android:drawable/ic_menu_sort_by_size" />
+            android:src="@android:drawable/ic_menu_sort_by_size"
+            android:contentDescription="@string/hamburger_menu_button_icon_nav_bar" />
 
         <ImageButton
             android:id="@+id/imageButton9"
@@ -123,14 +128,15 @@
             android:layout_height="37dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:src="@android:drawable/ic_menu_view" />
+            android:src="@android:drawable/ic_menu_view"
+            android:contentDescription="@string/personal_page_button_icon_nav_bar" />
 
         <Button
             android:id="@+id/logOutButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="392dp"
-            android:text="Log out"
+            android:text="@string/log_out"
             app:layout_constraintEnd_toEndOf="@+id/button6"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="@+id/button6"
@@ -141,29 +147,31 @@
             android:layout_width="147dp"
             android:layout_height="24dp"
             android:layout_marginTop="104dp"
-            android:text="Vegan mode"
+            android:text="@string/vegan_mode"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.093"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <Switch
             android:id="@+id/switch3"
             android:layout_width="147dp"
             android:layout_height="24dp"
             android:layout_marginTop="144dp"
-            android:text="Notifications"
+            android:text="@string/notifications"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.089"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <Button
             android:id="@+id/button5"
             android:layout_width="162dp"
             android:layout_height="44dp"
             android:layout_marginTop="256dp"
-            android:text="New password"
+            android:text="@string/new_password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -173,7 +181,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="324dp"
-            android:text="Change email"
+            android:text="@string/change_email"
             app:layout_constraintEnd_toEndOf="@+id/button5"
             app:layout_constraintHorizontal_bias="0.461"
             app:layout_constraintStart_toStartOf="@+id/button5"
