@@ -3,8 +3,8 @@ package com.example.matapp
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import com.example.matapp.databinding.ActivityCreaterecipeBinding
 
@@ -39,35 +39,43 @@ class CreateRecipeActivity : ComponentActivity() {
             finish()
         }
 
-        val options = arrayOf(1, 2, 3)
+        val difficultyOptions = arrayOf("Easy", "Medium", "Hard")
+        val spiceOptions = arrayOf("Mild" , "Medium", "Strong")
 
         val spinnerDifficulty: Spinner = findViewById(R.id.spinnerRecipeDifficulty)
         val spinnerSpice: Spinner = findViewById(R.id.spinnerSpiceLevel)
 
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, options)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val difficultyAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, difficultyOptions)
+        difficultyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        spinnerSpice.adapter = adapter
-        spinnerDifficulty.adapter = adapter
+        val spiceAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, spiceOptions)
+        spiceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        data class Recipe(
-            val title: String,
-            val cookTime: String,
-            val ingredients: List<String>,
-            val difficulty: Int,
-            val spiceLevel: Int
-        )
+        spinnerSpice.adapter = spiceAdapter
+        spinnerDifficulty.adapter = difficultyAdapter
 
-        val createButton = findViewById<Button>(R.id.createRecipeButton)
         binding.createRecipeButton.setOnClickListener {
             val recipeTitle = binding.editTextRecipeTitle.text.toString()
+            if (recipeTitle.isEmpty()) {
+                Toast.makeText(this, "Please enter a title for your recipe.", Toast.LENGTH_SHORT).show()
+            }
             val cookTime = binding.editTextRecipeCookTime.text.toString()
-            val ingredients = binding.editTextRecipeIngredients.text.toString()
-            val difficulty = binding.spinnerRecipeDifficulty.selectedItem.toString().toInt()
-            val spiceLevel = binding.spinnerSpiceLevel.selectedItem.toString().toInt()
-
-            val recipe = Recipe(recipeTitle, cookTime, listOf(ingredients), difficulty, spiceLevel)
-
+            if (cookTime.isEmpty()) {
+                Toast.makeText(this, "Please enter a cooktime for your recipe.", Toast.LENGTH_SHORT).show()
+            }
+            val ingredient = binding.editTextRecipeIngredients.text.toString()
+            if (ingredient.isEmpty()) {
+                Toast.makeText(this, "Please enter a ingredient for you recipe.", Toast.LENGTH_SHORT).show()
+            }
+            //add quantity input to specify to the database
+            val difficulty = binding.spinnerRecipeDifficulty.selectedItem.toString()
+            if (difficulty.isEmpty()) {
+                Toast.makeText(this, "Please enter a difficulty for your recipe.", Toast.LENGTH_SHORT).show()
+            }
+            val spiceLevel = binding.spinnerSpiceLevel.selectedItem.toString()
+            if (spiceLevel.isEmpty()) {
+                Toast.makeText(this, "Please enter a spice level for your recipe.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

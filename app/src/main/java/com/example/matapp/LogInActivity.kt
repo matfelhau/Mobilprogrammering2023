@@ -9,6 +9,7 @@ import com.example.matapp.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.database.FirebaseDatabase
 
 class LogInActivity : AppCompatActivity() {
 
@@ -16,6 +17,7 @@ class LogInActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         auth = FirebaseAuth.getInstance()
+        val database = FirebaseDatabase.getInstance().getReference("users")
 
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
@@ -38,6 +40,12 @@ class LogInActivity : AppCompatActivity() {
                         if (task.isSuccessful) {
                             Log.d(TAG, "createUserWithEmail:success")
                             val user = auth.currentUser
+                            user?.let {
+                                val userId = it.uid
+                                val userEmail = it.email ?: ""
+                                val userData = mapOf("email" to userEmail)
+                                database.child(userId).setValue(userData)
+                            }
                             user?.sendEmailVerification()?.addOnSuccessListener {
                                 Toast.makeText(
                                     baseContext,
