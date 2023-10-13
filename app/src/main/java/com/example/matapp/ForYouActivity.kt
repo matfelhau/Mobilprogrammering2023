@@ -37,12 +37,11 @@ class ForYouActivity : ComponentActivity() {
             finish()
         }
 
-        binding.imageButtonSettings.setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java)
+        binding.imageButtonHamburgerMenu.setOnClickListener {
+            val intent = Intent(this, CreateRecipeActivity::class.java)
             startActivity(intent)
             finish()
         }
-
 
     }
 }
