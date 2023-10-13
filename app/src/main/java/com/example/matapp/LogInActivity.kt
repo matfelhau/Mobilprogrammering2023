@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.matapp.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuthEmailException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 
 class LogInActivity : AppCompatActivity() {
@@ -110,48 +109,49 @@ class LogInActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
 
-            binding.loginButton.setOnClickListener {
-                val email = binding.emailEditText.text.toString().trim()
-                val password = binding.passwordEditText.text.toString().trim()
+        binding.loginButton.setOnClickListener {
+            val email = binding.emailEditText.text.toString().trim()
+            val password = binding.passwordEditText.text.toString().trim()
 
-                if (email.isNotEmpty() && password.isNotEmpty()) {
-                    auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(this) { task ->
-                            if (task.isSuccessful) {
-                                val user = auth.currentUser
-                                if (user?.isEmailVerified == true) {
-                                    Toast.makeText(
-                                        this,
-                                        "Success!",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                    val intent = Intent(this, ForYouActivity::class.java)
-                                    startActivity(intent)
-                                    finish()
-                                } else {
-                                    Toast.makeText(
-                                        this,
-                                        "Please verify your email before logging in.",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
+            if (email.isNotEmpty() && password.isNotEmpty()) {
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            val user = auth.currentUser
+                            if (user?.isEmailVerified == true) {
+                                Toast.makeText(
+                                    this,
+                                    "Success!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                val intent = Intent(this, ForYouActivity::class.java)
+                                startActivity(intent)
+                                finish()
                             } else {
                                 Toast.makeText(
                                     this,
-                                    "Fail!: ${task.exception?.message}",
+                                    "Please verify your email before logging in.",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
+                        } else {
+                            Toast.makeText(
+                                this,
+                                "Fail!: ${task.exception?.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
-                } else {
-                    Toast.makeText(
-                        this,
-                        "Please enter email and password",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                    }
+            } else {
+                Toast.makeText(
+                    this,
+                    "Please enter email and password",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
 }
+
