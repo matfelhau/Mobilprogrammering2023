@@ -41,7 +41,7 @@
         android:layout_marginTop="-36dp"
         app:layout_constraintStart_toEndOf="@id/imageButtonForYou"
         app:layout_constraintTop_toBottomOf="@id/imageButtonForYou"
-        android:src="?android:attr/actionModeWebSearchDrawable"
+        android:src="@drawable/search"
         android:contentDescription="@string/search_icon_nav_bar" />
 
     <TextView
@@ -63,7 +63,7 @@
         android:layout_marginTop="-36dp"
         app:layout_constraintStart_toEndOf="@id/imageButtonSearch"
         app:layout_constraintTop_toBottomOf="@id/imageButtonSearch"
-        android:src="@android:drawable/ic_input_get"
+        android:src="@drawable/saved"
         android:contentDescription="@string/saved_button_icon_nav_bar" />
 
     <TextView
@@ -85,8 +85,8 @@
         android:layout_marginTop="-36dp"
         app:layout_constraintStart_toEndOf="@id/imageButtonSaved"
         app:layout_constraintTop_toBottomOf="@id/imageButtonSaved"
-        android:src="@android:drawable/ic_menu_manage"
-        android:contentDescription="@string/settings_button_icon_nav_bar" />
+        android:contentDescription="@string/settings_button_icon_nav_bar"
+        android:src="@android:drawable/ic_menu_manage" />
 
     <TextView
         android:id="@+id/textSettings"
@@ -107,8 +107,9 @@
         android:layout_marginTop="596dp"
         app:layout_constraintStart_toEndOf="@id/titleForYou"
         app:layout_constraintTop_toBottomOf="@+id/titleForYou"
-        android:src="@android:drawable/ic_menu_myplaces"
-        android:contentDescription="@string/for_you_button_icon_nav_bar" />
+        android:contentDescription="@string/for_you_button_icon_nav_bar"
+        android:src="@drawable/foryou"/>
+
 
     <TextView
         android:id="@+id/textForYou"
