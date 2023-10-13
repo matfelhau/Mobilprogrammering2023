@@ -122,93 +122,104 @@
 
     <EditText
         android:id="@+id/editTextRecipeTitle"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         android:hint="Enter text here"
         android:inputType="text"
-        tools:layout_editor_absoluteX="24dp"
-        tools:layout_editor_absoluteY="113dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textRecipeTitle"
-        android:layout_width="62dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="-375dp"
-        android:layout_marginTop="-60dp"
+        android:layout_width="80dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="-350dp"
+        android:layout_marginTop="-56dp"
         android:text="Title:"
         app:layout_constraintStart_toEndOf="@id/editTextRecipeTitle"
-        app:layout_constraintTop_toBottomOf="@id/editTextRecipeTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextRecipeTitle" />
 
     <EditText
         android:id="@+id/editTextRecipeCookTime"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="-350dp"
+        android:layout_marginTop="40dp"
         android:hint="Enter text here"
         android:inputType="text"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="199dp" />
+        app:layout_constraintStart_toEndOf="@id/editTextRecipeTitle"
+        app:layout_constraintTop_toBottomOf="@id/editTextRecipeTitle" />
 
     <TextView
         android:id="@+id/textRecipeCookTime"
-        android:layout_width="70dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="-375dp"
-        android:layout_marginTop="-60dp"
+        android:layout_width="80dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="-350dp"
+        android:layout_marginTop="-56dp"
         android:text="Cook time:"
         app:layout_constraintStart_toEndOf="@id/editTextRecipeCookTime"
         app:layout_constraintTop_toBottomOf="@id/editTextRecipeCookTime" />
 
     <EditText
         android:id="@+id/editTextRecipeIngredients"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="-350dp"
+        android:layout_marginTop="40dp"
         android:hint="Enter text here"
         android:inputType="text"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="284dp" />
+        app:layout_constraintStart_toEndOf="@id/editTextRecipeCookTime"
+        app:layout_constraintTop_toBottomOf="@id/editTextRecipeCookTime" />
 
     <TextView
         android:id="@+id/textRecipeIngredients"
-        android:layout_width="75dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="-375dp"
-        android:layout_marginTop="-60dp"
+        android:layout_width="80dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="-350dp"
+        android:layout_marginTop="-56dp"
         android:text="Ingredients:"
         app:layout_constraintStart_toEndOf="@id/editTextRecipeIngredients"
         app:layout_constraintTop_toBottomOf="@id/editTextRecipeIngredients" />
 
     <Spinner
         android:id="@+id/spinnerRecipeDifficulty"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="-350dp"
+        android:layout_marginTop="50dp"
         android:spinnerMode="dropdown"
-        tools:layout_editor_absoluteX="21dp"
-        tools:layout_editor_absoluteY="379dp" />
+        app:layout_constraintStart_toEndOf="@id/editTextRecipeIngredients"
+        app:layout_constraintTop_toBottomOf="@id/editTextRecipeIngredients" />
+
 
     <TextView
         android:id="@+id/textRecipeDifficulty"
-        android:layout_width="75dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="-375dp"
-        android:layout_marginTop="-60dp"
+        android:layout_width="80dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="-350dp"
+        android:layout_marginTop="-56dp"
         android:text="Difficulty:"
         app:layout_constraintStart_toEndOf="@id/spinnerRecipeDifficulty"
         app:layout_constraintTop_toBottomOf="@id/spinnerRecipeDifficulty" />
 
     <Spinner
         android:id="@+id/spinnerSpiceLevel"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="-350dp"
+        android:layout_marginTop="50dp"
         android:spinnerMode="dropdown"
-        tools:layout_editor_absoluteX="21dp"
-        tools:layout_editor_absoluteY="461dp" />
+        app:layout_constraintStart_toEndOf="@id/spinnerRecipeDifficulty"
+        app:layout_constraintTop_toBottomOf="@id/spinnerRecipeDifficulty" />
 
     <TextView
         android:id="@+id/textRecipeSpiceLevel"
-        android:layout_width="75dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="-375dp"
-        android:layout_marginTop="-60dp"
+        android:layout_width="80dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="-350dp"
+        android:layout_marginTop="-56dp"
         android:text="Spice Level:"
         app:layout_constraintStart_toEndOf="@id/spinnerSpiceLevel"
         app:layout_constraintTop_toBottomOf="@id/spinnerSpiceLevel" />
@@ -217,8 +228,10 @@
         android:id="@+id/createRecipeButton"
         android:layout_width="162dp"
         android:layout_height="44dp"
+        android:layout_marginStart="-144dp"
+        android:layout_marginTop="532dp"
         android:text="Create"
-        tools:layout_editor_absoluteX="106dp"
-        tools:layout_editor_absoluteY="562dp" />
+        app:layout_constraintStart_toEndOf="@id/titleForYou"
+        app:layout_constraintTop_toBottomOf="@id/titleForYou" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

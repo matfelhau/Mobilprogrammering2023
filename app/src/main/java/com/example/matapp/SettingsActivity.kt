@@ -55,5 +55,11 @@ class SettingsActivity : ComponentActivity() {
             finish()
         }
 
+        binding.imageButtonHamburgerMenu.setOnClickListener {
+            val intent = Intent(this, CreateRecipeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
     }
 }
