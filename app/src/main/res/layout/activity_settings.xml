@@ -119,7 +119,7 @@
             android:layout_height="37dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/Menu"
+            android:src="@drawable/menu"
             android:contentDescription="@string/hamburger_menu_button_icon_nav_bar" />
 
         <ImageButton
@@ -128,7 +128,7 @@
             android:layout_height="37dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/UserIcon"
+            android:src="@drawable/usericon"
             android:contentDescription="@string/personal_page_button_icon_nav_bar" />
 
         <Button
