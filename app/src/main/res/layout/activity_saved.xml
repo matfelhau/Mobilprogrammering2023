@@ -21,6 +21,7 @@
             android:gravity="center"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,7 +40,7 @@
             android:layout_width="62dp"
             android:layout_height="23dp"
             android:layout_marginStart="-62dp"
-            android:layout_marginTop="616dp"
+            android:layout_marginTop="632dp"
             android:text="Search"
             android:gravity="center"
             app:layout_constraintStart_toEndOf="@+id/imageButtonSearch"
@@ -60,7 +61,7 @@
             android:layout_width="62dp"
             android:layout_height="23dp"
             android:layout_marginStart="-62dp"
-            android:layout_marginTop="616dp"
+            android:layout_marginTop="632dp"
             android:text="Saved"
             android:gravity="center"
             app:layout_constraintStart_toEndOf="@+id/imageButtonSaved"
@@ -81,7 +82,7 @@
             android:layout_width="62dp"
             android:layout_height="23dp"
             android:layout_marginStart="-62dp"
-            android:layout_marginTop="616dp"
+            android:layout_marginTop="632dp"
             android:text="Settings"
             android:gravity="center"
             app:layout_constraintStart_toEndOf="@+id/imageButtonSettings"
@@ -91,17 +92,18 @@
             android:id="@+id/imageButtonForYou"
             android:layout_width="62dp"
             android:layout_height="36dp"
-            android:layout_marginTop="580dp"
+            android:layout_marginStart="-225dp"
+            android:layout_marginTop="596dp"
+            app:layout_constraintStart_toEndOf="@id/titleForYou"
             app:layout_constraintTop_toBottomOf="@+id/titleForYou"
-            app:srcCompat="@android:drawable/ic_menu_myplaces"
-            tools:layout_editor_absoluteX="27dp" />
+            app:srcCompat="@android:drawable/ic_menu_myplaces" />
 
         <TextView
             android:id="@+id/textForYou"
             android:layout_width="62dp"
             android:layout_height="23dp"
             android:layout_marginStart="-62dp"
-            android:layout_marginTop="616dp"
+            android:layout_marginTop="632dp"
             android:text="For You"
             android:gravity="center"
             app:layout_constraintStart_toEndOf="@+id/imageButtonForYou"
@@ -111,20 +113,16 @@
             android:id="@+id/imageButton8"
             android:layout_width="46dp"
             android:layout_height="37dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@android:drawable/ic_menu_sort_by_size" />
 
         <ImageButton
             android:id="@+id/imageButton9"
             android:layout_width="46dp"
             android:layout_height="37dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@android:drawable/ic_menu_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,13 +14,14 @@
 
         <TextView
             android:id="@+id/titleForYou"
-            android:layout_width="115dp"
-            android:layout_height="40dp"
+            android:layout_width="110dp"
+            android:layout_height="41dp"
             android:layout_marginTop="4dp"
             android:text="Settings"
             android:gravity="center"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,11 +40,11 @@
             android:layout_width="62dp"
             android:layout_height="23dp"
             android:layout_marginStart="-62dp"
-            android:layout_marginTop="469dp"
+            android:layout_marginTop="632dp"
             android:text="Search"
             android:gravity="center"
             app:layout_constraintStart_toEndOf="@+id/imageButtonSearch"
-            app:layout_constraintTop_toBottomOf="@+id/logOutButton" />
+            app:layout_constraintTop_toBottomOf="@+id/titleForYou" />
 
         <ImageButton
             android:id="@+id/imageButtonSaved"
@@ -60,11 +61,11 @@
             android:layout_width="62dp"
             android:layout_height="23dp"
             android:layout_marginStart="-62dp"
-            android:layout_marginTop="469dp"
+            android:layout_marginTop="632dp"
             android:text="Saved"
             android:gravity="center"
             app:layout_constraintStart_toEndOf="@+id/imageButtonSaved"
-            app:layout_constraintTop_toBottomOf="@+id/logOutButton" />
+            app:layout_constraintTop_toBottomOf="@+id/titleForYou" />
 
         <ImageButton
             android:id="@+id/imageButtonSettings"
@@ -81,11 +82,11 @@
             android:layout_width="62dp"
             android:layout_height="23dp"
             android:layout_marginStart="-62dp"
-            android:layout_marginTop="469dp"
+            android:layout_marginTop="632dp"
             android:text="Settings"
             android:gravity="center"
             app:layout_constraintStart_toEndOf="@+id/imageButtonSettings"
-            app:layout_constraintTop_toBottomOf="@+id/logOutButton" />
+            app:layout_constraintTop_toBottomOf="@+id/titleForYou" />
 
         <ImageButton
             android:id="@+id/imageButtonForYou"
@@ -102,18 +103,16 @@
             android:layout_width="62dp"
             android:layout_height="23dp"
             android:layout_marginStart="-62dp"
-            android:layout_marginTop="469dp"
+            android:layout_marginTop="632dp"
             android:text="For You"
             android:gravity="center"
             app:layout_constraintStart_toEndOf="@+id/imageButtonForYou"
-            app:layout_constraintTop_toBottomOf="@+id/logOutButton" />
+            app:layout_constraintTop_toBottomOf="@+id/titleForYou" />
 
         <ImageButton
             android:id="@+id/imageButton8"
             android:layout_width="46dp"
             android:layout_height="37dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_menu_sort_by_size" />
@@ -122,8 +121,6 @@
             android:id="@+id/imageButton9"
             android:layout_width="46dp"
             android:layout_height="37dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_menu_view" />
