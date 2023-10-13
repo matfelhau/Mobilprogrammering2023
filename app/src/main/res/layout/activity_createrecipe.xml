@@ -27,7 +27,7 @@
         android:layout_marginTop="-36dp"
         app:layout_constraintStart_toEndOf="@id/imageButtonForYou"
         app:layout_constraintTop_toBottomOf="@id/imageButtonForYou"
-        app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
+        android:src="?android:attr/actionModeWebSearchDrawable" />
 
     <TextView
         android:id="@+id/textSearch"
@@ -48,7 +48,7 @@
         android:layout_marginTop="-36dp"
         app:layout_constraintStart_toEndOf="@id/imageButtonSearch"
         app:layout_constraintTop_toBottomOf="@id/imageButtonSearch"
-        app:srcCompat="@android:drawable/ic_input_get" />
+        android:src="@android:drawable/ic_input_get" />
 
     <TextView
         android:id="@+id/textSaved"
@@ -69,7 +69,7 @@
         android:layout_marginTop="-36dp"
         app:layout_constraintStart_toEndOf="@id/imageButtonSaved"
         app:layout_constraintTop_toBottomOf="@id/imageButtonSaved"
-        app:srcCompat="@android:drawable/ic_menu_manage" />
+        android:src="@android:drawable/ic_menu_manage" />
 
     <TextView
         android:id="@+id/textSettings"
@@ -90,7 +90,7 @@
         android:layout_marginTop="596dp"
         app:layout_constraintStart_toEndOf="@id/titleForYou"
         app:layout_constraintTop_toBottomOf="@+id/titleForYou"
-        app:srcCompat="@android:drawable/ic_menu_myplaces" />
+        android:src="@android:drawable/ic_menu_myplaces" />
 
     <TextView
         android:id="@+id/textForYou"
@@ -109,7 +109,7 @@
         android:layout_height="37dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_sort_by_size" />
+        android:src="@android:drawable/ic_menu_sort_by_size" />
 
     <ImageButton
         android:id="@+id/imageButton9"
@@ -117,7 +117,7 @@
         android:layout_height="37dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_view" />
+        android:src="@android:drawable/ic_menu_view" />
 
     <EditText
         android:id="@+id/editTextRecipeTitle"
