@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.matapp.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuthEmailException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 
 class LogInActivity : AppCompatActivity() {
@@ -60,6 +61,7 @@ class LogInActivity : AppCompatActivity() {
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }
+
                                 else -> {
                                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
                                     Toast.makeText(
@@ -72,33 +74,84 @@ class LogInActivity : AppCompatActivity() {
                         }
                     }
             } else {
-                Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Please enter email and password",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
-        // Set up any listeners or other configurations for your views here
-        // For example, you can set up a click listener for the login button
-        binding.loginButton.setOnClickListener {
+        binding.resetPasswordButton.setOnClickListener {
+            val auth = FirebaseAuth.getInstance()
             val email = binding.emailEditText.text.toString().trim()
-            val password = binding.passwordEditText.text.toString().trim()
-
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
+            if (email.isEmpty()) {
+                Toast.makeText(
+                    this,
+                    "Please enter an email address.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                auth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, ForYouActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                        Log.d(TAG, "Email sent successfully.")
+                        Toast.makeText(
+                            this,
+                            "Password reset email sent!",
+                            Toast.LENGTH_SHORT,
+                        ).show()
                     } else {
-                        Toast.makeText(this, "Fail!: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
-
+                        Log.e(TAG, "Error sending password reset email.", task.exception)
+                        Toast.makeText(
+                            this,
+                            "Error sending password reset email.",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
-            } else {
-                Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
+            }
+
+            binding.loginButton.setOnClickListener {
+                val email = binding.emailEditText.text.toString().trim()
+                val password = binding.passwordEditText.text.toString().trim()
+
+                if (email.isNotEmpty() && password.isNotEmpty()) {
+                    auth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this) { task ->
+                            if (task.isSuccessful) {
+                                val user = auth.currentUser
+                                if (user?.isEmailVerified == true) {
+                                    Toast.makeText(
+                                        this,
+                                        "Success!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(this, ForYouActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                } else {
+                                    Toast.makeText(
+                                        this,
+                                        "Please verify your email before logging in.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            } else {
+                                Toast.makeText(
+                                    this,
+                                    "Fail!: ${task.exception?.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Please enter email and password",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
-
-
     }
 }
