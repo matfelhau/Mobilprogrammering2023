@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/titleForYou"
+        android:layout_width="125dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="4dp"
+        android:text="Create Recipe"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButtonSearch"
+        android:layout_width="62dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="-36dp"
+        app:layout_constraintStart_toEndOf="@id/imageButtonForYou"
+        app:layout_constraintTop_toBottomOf="@id/imageButtonForYou"
+        app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
+
+    <TextView
+        android:id="@+id/textSearch"
+        android:layout_width="62dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="-62dp"
+        android:layout_marginTop="632dp"
+        android:text="Search"
+        app:layout_constraintStart_toEndOf="@+id/imageButtonSearch"
+        app:layout_constraintTop_toBottomOf="@+id/titleForYou" />
+
+    <ImageButton
+        android:id="@+id/imageButtonSaved"
+        android:layout_width="62dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="-36dp"
+        app:layout_constraintStart_toEndOf="@id/imageButtonSearch"
+        app:layout_constraintTop_toBottomOf="@id/imageButtonSearch"
+        app:srcCompat="@android:drawable/ic_input_get" />
+
+    <TextView
+        android:id="@+id/textSaved"
+        android:layout_width="62dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="-62dp"
+        android:layout_marginTop="632dp"
+        android:text="Saved"
+        app:layout_constraintStart_toEndOf="@+id/imageButtonSaved"
+        app:layout_constraintTop_toBottomOf="@+id/titleForYou" />
+
+    <ImageButton
+        android:id="@+id/imageButtonSettings"
+        android:layout_width="62dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="-36dp"
+        app:layout_constraintStart_toEndOf="@id/imageButtonSaved"
+        app:layout_constraintTop_toBottomOf="@id/imageButtonSaved"
+        app:srcCompat="@android:drawable/ic_menu_manage" />
+
+    <TextView
+        android:id="@+id/textSettings"
+        android:layout_width="62dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="-62dp"
+        android:layout_marginTop="632dp"
+        android:text="Settings"
+        app:layout_constraintStart_toEndOf="@+id/imageButtonSettings"
+        app:layout_constraintTop_toBottomOf="@+id/titleForYou" />
+
+    <ImageButton
+        android:id="@+id/imageButtonForYou"
+        android:layout_width="62dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="596dp"
+        app:layout_constraintTop_toBottomOf="@+id/titleForYou"
+        app:srcCompat="@android:drawable/ic_menu_myplaces"
+        tools:layout_editor_absoluteX="16dp" />
+
+
+
+    <TextView
+        android:id="@+id/textForYou"
+        android:layout_width="62dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="-62dp"
+        android:layout_marginTop="632dp"
+        android:text="For You"
+        app:layout_constraintStart_toEndOf="@+id/imageButtonForYou"
+        app:layout_constraintTop_toBottomOf="@+id/titleForYou" />
+
+    <ImageButton
+        android:id="@+id/imageButton8"
+        android:layout_width="46dp"
+        android:layout_height="37dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_sort_by_size" />
+
+    <ImageButton
+        android:id="@+id/imageButton9"
+        android:layout_width="46dp"
+        android:layout_height="37dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_view" />
+
+    <EditText
+        android:id="@+id/editTextRecipeTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter text here"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="24dp"
+        tools:layout_editor_absoluteY="113dp" />
+
+    <TextView
+        android:id="@+id/textRecipeTitle"
+        android:layout_width="62dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="-375dp"
+        android:layout_marginTop="-60dp"
+        android:text="Title:"
+        app:layout_constraintStart_toEndOf="@id/editTextRecipeTitle"
+        app:layout_constraintTop_toBottomOf="@id/editTextRecipeTitle" />
+
+    <EditText
+        android:id="@+id/editTextRecipeCookTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter text here"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="199dp" />
+
+    <TextView
+        android:id="@+id/textRecipeCookTime"
+        android:layout_width="70dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="-375dp"
+        android:layout_marginTop="-60dp"
+        android:text="Cook time:"
+        app:layout_constraintStart_toEndOf="@id/editTextRecipeCookTime"
+        app:layout_constraintTop_toBottomOf="@id/editTextRecipeCookTime" />
+
+    <EditText
+        android:id="@+id/editTextRecipeIngredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter text here"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="284dp" />
+
+    <TextView
+        android:id="@+id/textRecipeIngredients"
+        android:layout_width="75dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="-375dp"
+        android:layout_marginTop="-60dp"
+        android:text="Ingredients:"
+        app:layout_constraintStart_toEndOf="@id/editTextRecipeIngredients"
+        app:layout_constraintTop_toBottomOf="@id/editTextRecipeIngredients" />
+
+    <Spinner
+        android:id="@+id/spinnerRecipeDifficulty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
+        tools:layout_editor_absoluteX="21dp"
+        tools:layout_editor_absoluteY="379dp" />
+
+    <TextView
+        android:id="@+id/textRecipeDifficulty"
+        android:layout_width="75dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="-375dp"
+        android:layout_marginTop="-60dp"
+        android:text="Difficulty:"
+        app:layout_constraintStart_toEndOf="@id/spinnerRecipeDifficulty"
+        app:layout_constraintTop_toBottomOf="@id/spinnerRecipeDifficulty" />
+
+    <Spinner
+        android:id="@+id/spinnerSpiceLevel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
+        tools:layout_editor_absoluteX="21dp"
+        tools:layout_editor_absoluteY="461dp" />
+
+    <TextView
+        android:id="@+id/textRecipeSpiceLevel"
+        android:layout_width="75dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="-375dp"
+        android:layout_marginTop="-60dp"
+        android:text="Spice Level:"
+        app:layout_constraintStart_toEndOf="@id/spinnerSpiceLevel"
+        app:layout_constraintTop_toBottomOf="@id/spinnerSpiceLevel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
