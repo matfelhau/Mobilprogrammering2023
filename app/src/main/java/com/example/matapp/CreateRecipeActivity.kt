@@ -3,6 +3,7 @@ package com.example.matapp
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -41,9 +42,11 @@ class CreateRecipeActivity : ComponentActivity() {
 
         val difficultyOptions = arrayOf("Easy", "Medium", "Hard")
         val spiceOptions = arrayOf("Mild" , "Medium", "Strong")
+        val quantity = arrayOf("grams", "dl", "tsp", "tbsp", "slices", "pcs")
 
         val spinnerDifficulty: Spinner = findViewById(R.id.spinnerRecipeDifficulty)
         val spinnerSpice: Spinner = findViewById(R.id.spinnerSpiceLevel)
+        val spinnerQuantity: Spinner = findViewById(R.id.spinnerIngredientQuantity)
 
         val difficultyAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, difficultyOptions)
         difficultyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -51,8 +54,12 @@ class CreateRecipeActivity : ComponentActivity() {
         val spiceAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, spiceOptions)
         spiceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
+        val adapterQuantity = ArrayAdapter(this, android.R.layout.simple_spinner_item, quantity)
+        adapterQuantity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
         spinnerSpice.adapter = spiceAdapter
         spinnerDifficulty.adapter = difficultyAdapter
+        spinnerQuantity.adapter = adapterQuantity
 
         binding.createRecipeButton.setOnClickListener {
             val recipeTitle = binding.editTextRecipeTitle.text.toString()

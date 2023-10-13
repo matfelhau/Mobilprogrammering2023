@@ -239,7 +239,29 @@
         android:layout_marginStart="-144dp"
         android:layout_marginTop="532dp"
         android:text="@string/create"
+        android:gravity="center"
         app:layout_constraintStart_toEndOf="@id/titleForYou"
         app:layout_constraintTop_toBottomOf="@id/titleForYou" />
+
+    <Spinner
+        android:id="@+id/spinnerIngredientQuantity"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-110dp"
+        android:layout_marginTop="-40dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintStart_toEndOf="@id/editTextRecipeIngredients"
+        app:layout_constraintTop_toBottomOf="@id/editTextRecipeIngredients" />
+
+    <EditText
+        android:id="@+id/editTextIngredientQuantity"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-220dp"
+        android:layout_marginTop="-46dp"
+        android:inputType="number"
+        android:hint="Amount"
+        app:layout_constraintStart_toEndOf="@id/editTextRecipeIngredients"
+        app:layout_constraintTop_toBottomOf="@id/editTextRecipeIngredients" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
