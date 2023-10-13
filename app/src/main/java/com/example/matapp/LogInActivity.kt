@@ -72,12 +72,13 @@ class LogInActivity : AppCompatActivity() {
                         }
                     }
             } else {
-                Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,
+                    "Please enter email and password",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
-        // Set up any listeners or other configurations for your views here
-        // For example, you can set up a click listener for the login button
         binding.loginButton.setOnClickListener {
             val email = binding.emailEditText.text.toString().trim()
             val password = binding.passwordEditText.text.toString().trim()
@@ -85,20 +86,34 @@ class LogInActivity : AppCompatActivity() {
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, ForYouActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                        val user = auth.currentUser
+                        if (user?.isEmailVerified == true) {
+                            Toast.makeText(this,
+                                "Success!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            val intent = Intent(this, ForYouActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Toast.makeText(this,
+                                "Please verify your email before logging in.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     } else {
-                        Toast.makeText(this, "Fail!: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
-
+                        Toast.makeText(this,
+                            "Fail!: ${task.exception?.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             } else {
-                Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,
+                    "Please enter email and password",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
-
-
     }
 }
