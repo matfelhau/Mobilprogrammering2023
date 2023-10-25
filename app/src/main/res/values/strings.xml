@@ -86,4 +86,7 @@
     <string name="notifications">Notifications</string>
     <string name="vegan_mode">Vegan mode</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_saved_compose">SavedActivityCompose</string>
+    <string name="title_activity_search_compose">SearchActivityCompose</string>
+    <string name="title_activity_settings_compose">SettingsActivityCompose</string>
 </resources>

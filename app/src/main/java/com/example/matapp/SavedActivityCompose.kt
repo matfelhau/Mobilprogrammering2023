@@ -21,23 +21,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.matapp.ui.theme.MatappTheme
 
-class ForYouActivityCompose : ComponentActivity() {
+class SavedActivityCompose : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MatappTheme {
-                ForYouLayout()
+                SavedLayout()
             }
         }
     }
 }
 
 @Composable
-fun ForYouLayout() {
+fun SavedLayout() {
 
     Column(
         modifier = Modifier.fillMaxSize(),
-        ) {
+    ) {
 
         // TOP NAV BAR ROW
         Row(
@@ -54,7 +54,7 @@ fun ForYouLayout() {
             Spacer(modifier = Modifier.weight(1f))
 
             Text(
-                text = "For You",
+                text = "Saved",
                 fontSize = 30.sp
             )
 
@@ -68,11 +68,6 @@ fun ForYouLayout() {
             )
         }
 
-        Text(
-            text = "You might like:",
-            fontSize = 20.sp,
-            modifier = Modifier.padding(start = 16.dp)
-        )
 
 
         // BOTTOM NAV BAR ROW
@@ -119,14 +114,14 @@ fun ForYouLayout() {
 
 
 @Composable
-fun ForYouScreen() {
-    ForYouLayout()
+fun SavedScreen() {
+    SavedLayout()
 }
 
 @Preview
 @Composable
-fun ForYouPreview() {
+fun SavedPreview() {
     MatappTheme {
-        ForYouScreen()
+        SavedScreen()
     }
 }

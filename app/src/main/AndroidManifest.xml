@@ -13,6 +13,21 @@
         android:theme="@style/Theme.Matapp"
         tools:targetApi="31">
         <activity
+            android:name=".SettingsActivityCompose"
+            android:exported="false"
+            android:label="@string/title_activity_settings_compose"
+            android:theme="@style/Theme.Matapp" />
+        <activity
+            android:name=".SearchActivityCompose"
+            android:exported="false"
+            android:label="@string/title_activity_search_compose"
+            android:theme="@style/Theme.Matapp" />
+        <activity
+            android:name=".SavedActivityCompose"
+            android:exported="false"
+            android:label="@string/title_activity_saved_compose"
+            android:theme="@style/Theme.Matapp" />
+        <activity
             android:name=".ForYouActivityCompose"
             android:exported="false"
             android:label="@string/title_activity_main"
