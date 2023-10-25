@@ -12,6 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Matapp"
         tools:targetApi="31">
+        <activity
+            android:name=".ForYouActivityCompose"
+            android:exported="false"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.Matapp" />
         <activity android:name=".DatabaseTestActivity" />
         <activity android:name=".DashboardActivity" />
         <activity android:name=".CreateRecipeActivity" />
