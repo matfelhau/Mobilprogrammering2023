@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.navigation.NavController
 import com.example.matapp.databinding.ActivityCreaterecipeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -26,8 +27,6 @@ class CreateRecipeActivity : ComponentActivity() {
 
         val binding = ActivityCreaterecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        setupUI(binding)
     }
 
     private fun initializeRecipe() {
@@ -41,29 +40,21 @@ class CreateRecipeActivity : ComponentActivity() {
         database.child(recipeId).setValue(initialRecipeData)
     }
 
-    private fun setupUI(binding: ActivityCreaterecipeBinding) {
+    private fun setupUI(binding: ActivityCreaterecipeBinding, navController: NavController) {
         binding.imageButtonSearch.setOnClickListener {
-            val intent = Intent(this, SearchActivity::class.java)
-            startActivity(intent)
-            finish()
+            navController.navigate(Screen.ForYou.route)
         }
 
         binding.imageButtonSaved.setOnClickListener {
-            val intent = Intent(this, SavedActivity::class.java)
-            startActivity(intent)
-            finish()
+            navController.navigate(Screen.ForYou.route)
         }
 
         binding.imageButtonForYou.setOnClickListener {
-            val intent = Intent(this, ForYouActivity::class.java)
-            startActivity(intent)
-            finish()
+            navController.navigate(Screen.ForYou.route)
         }
 
         binding.imageButtonSettings.setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
-            finish()
+            navController.navigate(Screen.ForYou.route)
         }
 
         val difficultyOptions = arrayOf("Easy", "Medium", "Hard")
