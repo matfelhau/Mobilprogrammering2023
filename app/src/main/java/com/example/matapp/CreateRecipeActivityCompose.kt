@@ -6,19 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -43,6 +33,27 @@ class CreateRecipeActivityCompose : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateRecipeLayout() {
+
+    var checkbox1State by remember { mutableStateOf(false) }
+    var checkbox2State by remember { mutableStateOf(false) }
+    var checkbox3State by remember { mutableStateOf(false) }
+    var checkbox4State by remember { mutableStateOf(false) }
+
+    fun onCheckbox1Clicked() {
+        checkbox1State = !checkbox1State
+    }
+
+    fun onCheckbox2Clicked() {
+        checkbox2State = !checkbox2State
+    }
+
+    fun onCheckbox3Clicked() {
+        checkbox3State = !checkbox3State
+    }
+
+    fun onCheckbox4Clicked() {
+        checkbox4State = !checkbox4State
+    }
 
     Column(
         modifier = Modifier
@@ -123,6 +134,55 @@ fun CreateRecipeLayout() {
             }
         }
 
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.weight(1f)
+            ) {
+                Checkbox(
+                    checked = checkbox1State,
+                    onCheckedChange = { checked -> onCheckbox1Clicked() },
+                )
+                Text("Gluten")
+            }
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.weight(1f)
+            ) {
+                Checkbox(
+                    checked = checkbox2State,
+                    onCheckedChange = { checked -> onCheckbox2Clicked() },
+                )
+                Text("Vegan")
+            }
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.weight(1f)
+            ) {
+                Checkbox(
+                    checked = checkbox3State,
+                    onCheckedChange = { checked -> onCheckbox3Clicked() },
+                )
+                Text("Soy")
+            }
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.weight(1f)
+            ) {
+                Checkbox(
+                    checked = checkbox4State,
+                    onCheckedChange = { checked -> onCheckbox4Clicked() },
+                )
+                Text("Nuts")
+            }
+        }
+
 
         // BOTTOM NAV BAR ROW
         Spacer(modifier = Modifier.weight(1f))
@@ -168,7 +228,7 @@ fun CreateRecipeLayout() {
 
 
 @Composable
-fun CreateRecipeScreen2() {
+fun CreateRecipeScreen() {
     CreateRecipeLayout()
 }
 
@@ -176,6 +236,6 @@ fun CreateRecipeScreen2() {
 @Composable
 fun CreateRecipePreview() {
     MatappTheme {
-        CreateRecipeScreen2()
+        CreateRecipeScreen()
     }
 }

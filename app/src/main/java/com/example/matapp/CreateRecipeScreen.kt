@@ -85,8 +85,29 @@ fun CreateRecipeLayout(
     var selectedDifficulty by remember { mutableStateOf("") }
     val addedIngredients = remember { mutableStateListOf<String>() }
 
+    var checkbox1State by remember { mutableStateOf(false) }
+    var checkbox2State by remember { mutableStateOf(false) }
+    var checkbox3State by remember { mutableStateOf(false) }
+    var checkbox4State by remember { mutableStateOf(false) }
+
     fun showError(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun onCheckbox1Clicked() {
+        checkbox1State = !checkbox1State
+    }
+
+    fun onCheckbox2Clicked() {
+        checkbox2State = !checkbox2State
+    }
+
+    fun onCheckbox3Clicked() {
+        checkbox3State = !checkbox3State
+    }
+
+    fun onCheckbox4Clicked() {
+        checkbox4State = !checkbox4State
     }
 
     Column(
@@ -325,6 +346,55 @@ fun CreateRecipeLayout(
                         }
                     )
                 }
+            }
+        }
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.weight(1f)
+            ) {
+                Checkbox(
+                    checked = checkbox1State,
+                    onCheckedChange = { checked -> onCheckbox1Clicked() },
+                )
+                Text("Gluten")
+            }
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.weight(1f)
+            ) {
+                Checkbox(
+                    checked = checkbox2State,
+                    onCheckedChange = { checked -> onCheckbox2Clicked() },
+                )
+                Text("Vegan")
+            }
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.weight(1f)
+            ) {
+                Checkbox(
+                    checked = checkbox3State,
+                    onCheckedChange = { checked -> onCheckbox3Clicked() },
+                )
+                Text("Soy")
+            }
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.weight(1f)
+            ) {
+                Checkbox(
+                    checked = checkbox4State,
+                    onCheckedChange = { checked -> onCheckbox4Clicked() },
+                )
+                Text("Nuts")
             }
         }
 
