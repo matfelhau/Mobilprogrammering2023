@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,6 +40,7 @@ class CreateRecipeActivityCompose : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateRecipeLayout() {
 
@@ -166,7 +168,7 @@ fun CreateRecipeLayout() {
 
 
 @Composable
-fun CreateRecipeScreen() {
+fun CreateRecipeScreen2() {
     CreateRecipeLayout()
 }
 
@@ -174,6 +176,6 @@ fun CreateRecipeScreen() {
 @Composable
 fun CreateRecipePreview() {
     MatappTheme {
-        CreateRecipeScreen()
+        CreateRecipeScreen2()
     }
 }
