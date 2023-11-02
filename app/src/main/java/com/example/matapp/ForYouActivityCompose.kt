@@ -118,6 +118,7 @@ fun ForYouLayout(navController: NavController, viewModel: ForYouViewModel) {
 
 @Composable
 fun RecipeCard(recipe: Recipe, onNextRecipe: () -> Unit, onSave: () -> Unit) {
+    val navController = rememberNavController()
     val customTextStyle = TextStyle(
         fontSize = 20.sp,
         fontWeight = FontWeight.Bold,
@@ -159,7 +160,7 @@ fun RecipeCard(recipe: Recipe, onNextRecipe: () -> Unit, onSave: () -> Unit) {
                 ) {
                     Text(
                         text = recipe.title,
-                        style = customTextStyle, // Use the custom text style here
+                        style = customTextStyle,
                         color = Color.White
                     )
 
@@ -202,7 +203,10 @@ fun RecipeCard(recipe: Recipe, onNextRecipe: () -> Unit, onSave: () -> Unit) {
                     ) {
 
                         IconButton(
-                            onClick = { onNextRecipe() },
+                            onClick = {
+                                onNextRecipe()
+                                //navController.navigate(Screen.ForYou.route)
+                                },
                             modifier = Modifier.size(48.dp),
                             content = {
                                 Icon(imageVector = Icons.Default.ArrowForward, contentDescription = "Next Recipe")

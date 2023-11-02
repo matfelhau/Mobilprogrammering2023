@@ -3,6 +3,9 @@ package com.example.matapp
 import BottomNavBar
 import Screen
 import TopNavBar
+import android.content.ContentValues.TAG
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,18 +26,25 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.matapp.ui.theme.MatappTheme
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun SettingsLayout(navController: NavController) {
+    val context = LocalContext.current
     var isVegan by remember { mutableStateOf(false) }
     var notificationOn by remember { mutableStateOf(false) }
+    val auth = FirebaseAuth.getInstance()
 
+    fun showError(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
 
     Column(
         modifier = Modifier
@@ -102,6 +112,15 @@ fun SettingsLayout(navController: NavController) {
         ) {
             Button(
                 onClick = {
+                          auth.sendPasswordResetEmail(auth.currentUser?.email ?: "").addOnCompleteListener {
+                              if (it.isSuccessful) {
+                                  Log.d(TAG, "Email sent successfully.")
+                                  showError("Password reset email sent!.")
+                              } else {
+                                  Log.e(TAG, "Error sending password reset email.", it.exception)
+                                  showError("Error sending password reset email.")
+                              }
+                          }
                 },
                 modifier = Modifier
                     .padding(8.dp)
@@ -111,6 +130,7 @@ fun SettingsLayout(navController: NavController) {
 
             Button(
                 onClick = {
+                          showError("Comming soon!")
                 },
                 modifier = Modifier
                     .padding(8.dp)
@@ -120,6 +140,11 @@ fun SettingsLayout(navController: NavController) {
 
             Button(
                 onClick = {
+                    val currentUser = auth.currentUser
+                    if (currentUser != null) {
+                        auth.signOut()
+                        navController.navigate(Screen.Login.route)
+                    }
                 },
                 modifier = Modifier
                     .padding(8.dp)

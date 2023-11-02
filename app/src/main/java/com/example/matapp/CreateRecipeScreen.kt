@@ -62,10 +62,6 @@ class CreateRecipeScreen : ComponentActivity() {
         }
         super.onBackPressed()
     }
-
-    private fun showError(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -223,12 +219,7 @@ fun CreateRecipeLayout(
                                     quantity = ""
                                     measuringUnit = ""
 
-
-                                    Toast.makeText(
-                                        context,
-                                        "Data added to Firebase Database",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    showError("Data added to Firebase Database")
                                 }
                         }
                     }
@@ -420,9 +411,11 @@ fun CreateRecipeLayout(
                 )
 
                 database.child(recipeId!!).updateChildren(recipeData).addOnSuccessListener {
+                    showError("Success!")
                     Log.d("FirebaseDebug", "Data written successfully!")
                     dataAdded = true
                 }.addOnFailureListener { exception ->
+                    showError("Error!")
                     Log.e("FirebaseDebug", "Error writing data: ", exception)
                 }
             }

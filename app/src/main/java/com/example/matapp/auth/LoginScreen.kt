@@ -1,6 +1,6 @@
+
 import android.content.ContentValues
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -63,6 +63,10 @@ fun LoginScreen(navController: NavController) {
         navController.navigate(Screen.ForYou.route)
     }
 
+    fun showError(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
     Column (
         modifier = Modifier
             .padding(16.dp)
@@ -95,7 +99,6 @@ fun LoginScreen(navController: NavController) {
             label = { Text(text = "Email") },
             modifier = Modifier
                 .fillMaxWidth()
-            //.padding(16.dp)
         )
 
         Spacer(modifier =  Modifier.height(16.dp))
@@ -107,39 +110,26 @@ fun LoginScreen(navController: NavController) {
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier
                 .fillMaxWidth()
-            //.padding(16.dp)
         )
 
         Spacer(modifier =  Modifier.height(16.dp))
 
         Row {
-            //reset password
+            // RESET PASSWORD
             Button(
                 onClick = {
                     val emailText = email.text
 
                     if (emailText.isEmpty()) {
-                        Toast.makeText(
-                            context,
-                            "Please enter an email address.",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        showError("Please enter an email address.")
                     } else {
                         auth.sendPasswordResetEmail(emailText).addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 Log.d(ContentValues.TAG, "Email sent successfully.")
-                                Toast.makeText(
-                                    context,
-                                    "Password reset email sent!",
-                                    Toast.LENGTH_SHORT,
-                                ).show()
+                                showError("Password reset email sent!")
                             } else {
                                 Log.e(ContentValues.TAG, "Error sending password reset email.", task.exception)
-                                Toast.makeText(
-                                    context,
-                                    "Error sending password reset email.",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                showError("Error sending password reset email.")
                             }
                         }
                     }
@@ -156,7 +146,7 @@ fun LoginScreen(navController: NavController) {
 
             Spacer(modifier =  Modifier.width(16.dp))
 
-            //register
+            // REGISTER USER
             Button(
                 onClick = {
                     val emailText = email.text
@@ -166,7 +156,7 @@ fun LoginScreen(navController: NavController) {
                         auth.createUserWithEmailAndPassword(emailText, passwordText)
                             .addOnCompleteListener() { task ->
                                 if (task.isSuccessful) {
-                                    Log.d(ContentValues.TAG, "createUserWithEmail:success")
+                                    Log.d(ContentValues.TAG, "createUserWithEmail : success")
                                     val user = auth.currentUser
                                     user?.let {
                                         val userId = it.uid
@@ -175,45 +165,25 @@ fun LoginScreen(navController: NavController) {
                                         database.child(userId).setValue(userData)
                                     }
                                     user?.sendEmailVerification()?.addOnSuccessListener {
-                                        Toast.makeText(
-                                            context,
-                                            "Account registered, please verify your email.",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
+                                        showError("Account registered, please verify your email.")
                                     }?.addOnFailureListener {
-                                        Toast.makeText(
-                                            context,
-                                            "Failed to send verification email",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
+                                        showError("Failed to send verification email")
                                     }
                                 } else {
                                     when (task.exception) {
                                         is FirebaseAuthUserCollisionException -> {
-                                            Toast.makeText(
-                                                context,
-                                                "This email is already in use",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
+                                            showError("This email is already in use")
                                         }
 
                                         else -> {
-                                            Log.w(ContentValues.TAG, "createUserWithEmail:failure", task.exception)
-                                            Toast.makeText(
-                                                context,
-                                                "Authentication failed.",
-                                                Toast.LENGTH_SHORT,
-                                            ).show()
+                                            Log.w(ContentValues.TAG, "createUserWithEmail : fail", task.exception)
+                                            showError("Authentication failed.")
                                         }
                                     }
                                 }
                             }
                     } else {
-                        Toast.makeText(
-                            context,
-                            "Please enter email and password",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        showError("Please enter email and password")
                     }
                 },
                 modifier = Modifier
@@ -229,7 +199,7 @@ fun LoginScreen(navController: NavController) {
 
         Spacer(modifier =  Modifier.height(16.dp))
 
-        //login
+        // LOGIN
         Button(
             onClick = {
                 val emailText = email.text
@@ -241,18 +211,18 @@ fun LoginScreen(navController: NavController) {
                             if (task.isSuccessful) {
                                 val user = auth.currentUser
                                 if (user?.isEmailVerified == true) {
-                                    Toast.makeText(context, "Success!", Toast.LENGTH_SHORT).show()
+                                    showError("Success!")
                                     navController.navigate(Screen.ForYou.route)
                                 }
                                 else {
-                                    Toast.makeText(context, "Please verify your email before logging in.", Toast.LENGTH_SHORT).show()
+                                    showError("Please verify your email before logging in.")
                                 }
                             } else {
-                                Toast.makeText(context, "Fail!: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                                showError("Fail!: ${task.exception?.message}")
                             }
                         }
                 } else {
-                    Toast.makeText(context, "Please enter email and password.", Toast.LENGTH_SHORT).show()
+                    showError("Please enter email and password.")
                 }
             },
             modifier = Modifier
