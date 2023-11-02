@@ -1,18 +1,26 @@
 package com.example.matapp
 
 import BottomNavBar
+import Screen
 import TopNavBar
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.matapp.ui.theme.MatappTheme
 
 @Composable
 fun SavedLayout(navController: NavController) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
     ) {
         TopNavBar(
             onHamburgerMenuClick = {
@@ -40,5 +48,20 @@ fun SavedLayout(navController: NavController) {
                 navController.navigate(Screen.Settings.route)
             }
         )
+    }
+}
+@Composable
+fun CreateSavedScreen(navController: NavController) {
+    SavedLayout(navController)
+}
+
+@Preview
+@Composable
+fun CreateSavedPreview() {
+
+    val navController: NavController = rememberNavController()
+
+    MatappTheme {
+        CreateSavedScreen(navController = navController)
     }
 }

@@ -434,6 +434,7 @@ fun CreateRecipeLayout(
             )
         }
 
+        Spacer(modifier = Modifier.weight(1f))
         BottomNavBar(
             onForYouClick = {
                 navController.navigate(Screen.ForYou.route)
