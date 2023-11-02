@@ -1,6 +1,7 @@
+package com.example.matapp
+
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.matapp.Recipe
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -8,8 +9,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class ForYouViewModel : ViewModel() {
-    var currentRecipeIndex = 0 // Use a mutable Int for the current index
-    var recipes: List<Recipe> = emptyList() // Initialize with your data
+    var currentRecipeIndex = 0
+    var recipes: List<Recipe> = emptyList()
     private val database: DatabaseReference = FirebaseDatabase.getInstance().reference
 
     fun loadRecipesFromFirebase() {
@@ -25,18 +26,14 @@ class ForYouViewModel : ViewModel() {
                         fetchedRecipes.add(recipe)
                     }
                 }
-
                 recipes = fetchedRecipes
-
-                Log.d("ForYouViewModel", "Fetched ${fetchedRecipes.size} recipes")
+                Log.d("com.example.matapp.ForYouViewModel", "Fetched ${fetchedRecipes.size} recipes")
             }
-
             override fun onCancelled(error: DatabaseError) {
-                Log.e("ForYouViewModel", "Firebase data loading cancelled: $error")
+                Log.e("com.example.matapp.ForYouViewModel", "Firebase data loading cancelled: $error")
             }
         })
     }
-
 
     fun getNextRecipe(): Recipe? {
         if (recipes.isEmpty()) return null

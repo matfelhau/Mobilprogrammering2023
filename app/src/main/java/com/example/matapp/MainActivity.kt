@@ -1,8 +1,9 @@
 package com.example.matapp
 
 import CreateRecipeLayout
-import ForYouViewModel
 import LoginScreen
+import SavedRecipesViewModel
+import Screen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,6 +20,7 @@ class MainActivity : ComponentActivity() {
     private val database by lazy { FirebaseDatabase.getInstance().getReference("recipes") }
     private val userId by lazy { FirebaseAuth.getInstance().currentUser?.uid }
     private val viewModel: ForYouViewModel by viewModels()
+    private val savedRecipesViewModel: SavedRecipesViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         recipeId = database.push().key.toString()
 
@@ -42,7 +44,7 @@ class MainActivity : ComponentActivity() {
                         SearchLayout(navController)
                     }
                     composable(Screen.Saved.route) {
-                        SavedLayout(navController)
+                        SavedLayout(navController, savedRecipesViewModel)
                     }
                     composable(Screen.Settings.route) {
                         SettingsLayout(navController)
