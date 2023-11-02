@@ -60,7 +60,7 @@ fun SettingsLayout(navController: NavController) {
             ) {
                 Text(
                     text = stringResource(id = R.string.vegan_mode),
-                    modifier = Modifier.padding(start = 33.dp)
+                    modifier = Modifier.padding(start = 33.dp, bottom = 8.dp)
                 )
                 Switch(
                     checked = isVegan,
