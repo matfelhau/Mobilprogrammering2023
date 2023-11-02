@@ -4,7 +4,6 @@ import BottomNavBar
 import Screen
 import TopNavBar
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -52,17 +51,16 @@ fun SettingsLayout(navController: NavController) {
             }
         )
 
-
+        Spacer(modifier = Modifier.weight(0.1f))
         Column(
             modifier = Modifier.fillMaxWidth(),
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
                     text = stringResource(id = R.string.vegan_mode),
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier.padding(start = 33.dp)
                 )
                 Switch(
                     checked = isVegan,
@@ -75,17 +73,16 @@ fun SettingsLayout(navController: NavController) {
                 )
             }
         }
-
+        Spacer(modifier = Modifier.weight(0.03f))
         Column(
             modifier = Modifier.fillMaxWidth(),
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
                     text = stringResource(id = R.string.notifications),
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier.padding(start = 30.dp)
                 )
                 Switch(
                     checked = notificationOn,
@@ -98,7 +95,7 @@ fun SettingsLayout(navController: NavController) {
                 )
             }
         }
-
+        Spacer(modifier = Modifier.weight(0.2f))
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
