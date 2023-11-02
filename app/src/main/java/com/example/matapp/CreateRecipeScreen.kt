@@ -29,10 +29,11 @@ class CreateRecipeScreen : ComponentActivity() {
     private val database by lazy { FirebaseDatabase.getInstance().getReference("recipes") }
     private val userId by lazy { FirebaseAuth.getInstance().currentUser?.uid }
     override fun onCreate(savedInstanceState: Bundle?) {
+        initializeRecipe()
+
         super.onCreate(savedInstanceState)
 
         recipeId = database.push().key.toString()
-        initializeRecipe()
 
         setContent {
             val navController = rememberNavController()
@@ -400,12 +401,22 @@ fun CreateRecipeLayout(
 
         Button(
             onClick = {
+                val allergens = mapOf(
+                    "gluten" to checkbox1State,
+                    "nuts" to checkbox4State,
+                    "soy" to checkbox3State,
+                )
+
+
                 val recipeData = mapOf(
                     "userId" to userId,
                     "title" to title,
                     "cookTime" to cookTime,
                     "difficulty" to selectedDifficulty,
                     "spiceLevel" to selectedSpiceLevel,
+                    "isVegan" to checkbox2State,
+                    "allergens" to allergens
+
                 )
 
                 database.child(recipeId!!).updateChildren(recipeData).addOnSuccessListener {

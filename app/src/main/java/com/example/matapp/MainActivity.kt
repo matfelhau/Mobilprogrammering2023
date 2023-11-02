@@ -1,10 +1,12 @@
 package com.example.matapp
 
 import CreateRecipeLayout
+import ForYouViewModel
 import LoginScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -16,6 +18,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var recipeId: String
     private val database by lazy { FirebaseDatabase.getInstance().getReference("recipes") }
     private val userId by lazy { FirebaseAuth.getInstance().currentUser?.uid }
+    private val viewModel: ForYouViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         recipeId = database.push().key.toString()
 
@@ -33,7 +36,7 @@ class MainActivity : ComponentActivity() {
                         LoginScreen(navController)
                     }
                     composable(Screen.ForYou.route) {
-                        ForYouLayout(navController)
+                        ForYouLayout(navController, viewModel = viewModel)
                     }
                     composable(Screen.Search.route) {
                         SearchLayout(navController)
