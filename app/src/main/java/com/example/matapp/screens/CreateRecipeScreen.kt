@@ -1,4 +1,3 @@
-
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -28,6 +27,7 @@ class CreateRecipeScreen : ComponentActivity() {
     private val database by lazy { FirebaseDatabase.getInstance().getReference("recipes") }
     private val userId by lazy { FirebaseAuth.getInstance().currentUser?.uid }
     override fun onCreate(savedInstanceState: Bundle?) {
+
         initializeRecipe()
 
         super.onCreate(savedInstanceState)

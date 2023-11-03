@@ -100,9 +100,7 @@ fun ProfilePictureLayout(navController: NavController) {
 
         TextField(
             value = changeUsername,
-            onValueChange = {
-                changeUsername = it
-            },
+            onValueChange = { changeUsername = it },
             label = { Text(text = "Enter a username") },
             singleLine = true,
             textStyle = TextStyle.Default,
@@ -110,7 +108,6 @@ fun ProfilePictureLayout(navController: NavController) {
             keyboardActions = KeyboardActions.Default,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
         )
     }
 }

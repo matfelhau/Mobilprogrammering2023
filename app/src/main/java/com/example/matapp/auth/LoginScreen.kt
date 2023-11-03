@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -93,6 +94,8 @@ fun LoginScreen(navController: NavController) {
             value = email,
             onValueChange = { email = it },
             label = { Text(text = "Email") },
+            singleLine = true,
+            textStyle = TextStyle.Default,
             keyboardOptions = KeyboardOptions.Default,
             keyboardActions = KeyboardActions.Default,
             modifier = Modifier
@@ -106,6 +109,8 @@ fun LoginScreen(navController: NavController) {
             onValueChange = { password = it },
             label = { Text(text = "Password") },
             visualTransformation = PasswordVisualTransformation(),
+            singleLine = true,
+            textStyle = TextStyle.Default,
             keyboardOptions = KeyboardOptions.Default,
             keyboardActions = KeyboardActions.Default,
             modifier = Modifier

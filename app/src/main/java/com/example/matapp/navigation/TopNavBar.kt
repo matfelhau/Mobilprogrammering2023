@@ -9,12 +9,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.matapp.R
-import com.example.matapp.Utility
 
 
 @Composable
@@ -24,7 +22,6 @@ fun TopNavBar(
     nameString: String
 
     ) {
-    val context = LocalContext.current
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -53,7 +50,6 @@ fun TopNavBar(
                 .size(40.dp)
                 .clickable {
                     onProfilePictureClick()
-                    Utility.showError(context = context, "Coming soon!")
                 }
         )
     }
