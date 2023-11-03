@@ -2,6 +2,7 @@ package com.example.matapp
 
 import CreateRecipeLayout
 import LoginScreen
+import ProfilePictureLayout
 import SavedRecipesViewModel
 import Screen
 import android.os.Bundle
@@ -11,6 +12,11 @@ import androidx.activity.viewModels
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.matapp.model.ForYouViewModel
+import com.example.matapp.screens.ForYouLayout
+import com.example.matapp.screens.SavedLayout
+import com.example.matapp.screens.SearchLayout
+import com.example.matapp.screens.SettingsLayout
 import com.example.matapp.ui.theme.MatappTheme
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -21,6 +27,17 @@ class MainActivity : ComponentActivity() {
     private val userId by lazy { FirebaseAuth.getInstance().currentUser?.uid }
     private val viewModel: ForYouViewModel by viewModels()
     private val savedRecipesViewModel: SavedRecipesViewModel by viewModels()
+
+    private fun initializeRecipe() {
+        val initialRecipeData = mapOf(
+            "userId" to userId,
+            "title" to "",
+            "cookTime" to "",
+            "difficulty" to "",
+            "spiceLevel" to ""
+        )
+        database.child(recipeId).setValue(initialRecipeData)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         recipeId = database.push().key.toString()
 
@@ -52,18 +69,11 @@ class MainActivity : ComponentActivity() {
                     composable(Screen.Create.route) {
                         CreateRecipeLayout(navController, recipeId, userId, database)
                     }
+                    composable(Screen.Profile.route) {
+                        ProfilePictureLayout(navController)
+                    }
                 }
             }
         }
-    }
-    private fun initializeRecipe() {
-        val initialRecipeData = mapOf(
-            "userId" to userId,
-            "title" to "",
-            "cookTime" to "",
-            "difficulty" to "",
-            "spiceLevel" to ""
-        )
-        database.child(recipeId).setValue(initialRecipeData)
     }
 }

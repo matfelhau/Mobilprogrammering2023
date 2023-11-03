@@ -1,4 +1,4 @@
-package com.example.matapp
+package com.example.matapp.screens
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -30,6 +30,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.matapp.R
 import com.example.matapp.ui.theme.MatappTheme
 
 
@@ -114,7 +115,6 @@ fun CreateRecipeLayout() {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // ADD INGREDIENT BUTTON
             Button(
                 onClick = {
 
@@ -130,7 +130,6 @@ fun CreateRecipeLayout() {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // CREATE RECIPE BUTTON
             Button(
                 onClick = {
 

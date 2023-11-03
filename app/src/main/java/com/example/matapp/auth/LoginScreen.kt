@@ -1,8 +1,5 @@
 
-import android.content.ContentValues
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -35,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.matapp.R
+import com.example.matapp.Utility
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.database.FirebaseDatabase
@@ -61,10 +61,6 @@ fun LoginScreen(navController: NavController) {
     val currentUser = auth.currentUser
     if (currentUser != null) {
         navController.navigate(Screen.ForYou.route)
-    }
-
-    fun showError(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
     Column (
@@ -97,6 +93,8 @@ fun LoginScreen(navController: NavController) {
             value = email,
             onValueChange = { email = it },
             label = { Text(text = "Email") },
+            keyboardOptions = KeyboardOptions.Default,
+            keyboardActions = KeyboardActions.Default,
             modifier = Modifier
                 .fillMaxWidth()
         )
@@ -108,6 +106,8 @@ fun LoginScreen(navController: NavController) {
             onValueChange = { password = it },
             label = { Text(text = "Password") },
             visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions.Default,
+            keyboardActions = KeyboardActions.Default,
             modifier = Modifier
                 .fillMaxWidth()
         )
@@ -121,15 +121,15 @@ fun LoginScreen(navController: NavController) {
                     val emailText = email.text
 
                     if (emailText.isEmpty()) {
-                        showError("Please enter an email address.")
+                        Utility.showError(context, "Please enter an email address.")
                     } else {
                         auth.sendPasswordResetEmail(emailText).addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                Log.d(ContentValues.TAG, "Email sent successfully.")
-                                showError("Password reset email sent!")
+                                Utility.showLogcatDebug("Email sent successfully.")
+                                Utility.showError(context,"Password reset email sent!")
                             } else {
-                                Log.e(ContentValues.TAG, "Error sending password reset email.", task.exception)
-                                showError("Error sending password reset email.")
+                                Utility.showLogcatError("Error sending password reset email. ${task.exception}")
+                                Utility.showError(context,"Error sending password reset email.")
                             }
                         }
                     }
@@ -156,7 +156,7 @@ fun LoginScreen(navController: NavController) {
                         auth.createUserWithEmailAndPassword(emailText, passwordText)
                             .addOnCompleteListener() { task ->
                                 if (task.isSuccessful) {
-                                    Log.d(ContentValues.TAG, "createUserWithEmail : success")
+                                    Utility.showLogcatDebug("Successfully created an account.")
                                     val user = auth.currentUser
                                     user?.let {
                                         val userId = it.uid
@@ -165,25 +165,25 @@ fun LoginScreen(navController: NavController) {
                                         database.child(userId).setValue(userData)
                                     }
                                     user?.sendEmailVerification()?.addOnSuccessListener {
-                                        showError("Account registered, please verify your email.")
+                                        Utility.showError(context,"Account registered, please verify your email.")
                                     }?.addOnFailureListener {
-                                        showError("Failed to send verification email")
+                                        Utility.showError(context,"Failed to send verification email.")
                                     }
                                 } else {
                                     when (task.exception) {
                                         is FirebaseAuthUserCollisionException -> {
-                                            showError("This email is already in use")
+                                            Utility.showError(context,"This email is already in use.")
                                         }
 
                                         else -> {
-                                            Log.w(ContentValues.TAG, "createUserWithEmail : fail", task.exception)
-                                            showError("Authentication failed.")
+                                            Utility.showLogcatWarning("Failed to register user")
+                                            Utility.showError(context,"Authentication failed. ${task.exception}")
                                         }
                                     }
                                 }
                             }
                     } else {
-                        showError("Please enter email and password")
+                        Utility.showError(context,"Please enter email and password")
                     }
                 },
                 modifier = Modifier
@@ -211,18 +211,18 @@ fun LoginScreen(navController: NavController) {
                             if (task.isSuccessful) {
                                 val user = auth.currentUser
                                 if (user?.isEmailVerified == true) {
-                                    showError("Success!")
+                                    Utility.showError(context,"Success!")
                                     navController.navigate(Screen.ForYou.route)
                                 }
                                 else {
-                                    showError("Please verify your email before logging in.")
+                                    Utility.showError(context,"Please verify your email before logging in.")
                                 }
                             } else {
-                                showError("Fail!: ${task.exception?.message}")
+                                Utility.showError(context,"Fail!: ${task.exception?.message}")
                             }
                         }
                 } else {
-                    showError("Please enter email and password.")
+                    Utility.showError(context,"Please enter email and password.")
                 }
             },
             modifier = Modifier

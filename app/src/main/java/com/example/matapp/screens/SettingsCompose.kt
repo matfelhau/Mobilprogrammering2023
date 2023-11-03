@@ -1,11 +1,8 @@
-package com.example.matapp
+package com.example.matapp.screens
 
 import BottomNavBar
 import Screen
 import TopNavBar
-import android.content.ContentValues.TAG
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,6 +29,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.matapp.R
+import com.example.matapp.Utility
 import com.example.matapp.ui.theme.MatappTheme
 import com.google.firebase.auth.FirebaseAuth
 
@@ -41,10 +40,6 @@ fun SettingsLayout(navController: NavController) {
     var isVegan by remember { mutableStateOf(false) }
     var notificationOn by remember { mutableStateOf(false) }
     val auth = FirebaseAuth.getInstance()
-
-    fun showError(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-    }
 
     Column(
         modifier = Modifier
@@ -114,11 +109,12 @@ fun SettingsLayout(navController: NavController) {
                 onClick = {
                           auth.sendPasswordResetEmail(auth.currentUser?.email ?: "").addOnCompleteListener {
                               if (it.isSuccessful) {
-                                  Log.d(TAG, "Email sent successfully.")
-                                  showError("Password reset email sent!.")
+                                  Utility.showLogcatDebug("Email sent successfully.")
+                                  Utility.showError(context, "Password reset email sent!.")
                               } else {
-                                  Log.e(TAG, "Error sending password reset email.", it.exception)
-                                  showError("Error sending password reset email.")
+                                  Utility.showLogcatError("Error sending password reset email.")
+                                  it.exception
+                                  Utility.showError(context, "Error sending password reset email.")
                               }
                           }
                 },
@@ -130,7 +126,7 @@ fun SettingsLayout(navController: NavController) {
 
             Button(
                 onClick = {
-                          showError("Comming soon!")
+                    Utility.showError(context, "Coming soon!")
                 },
                 modifier = Modifier
                     .padding(8.dp)
@@ -178,7 +174,6 @@ fun CreateSettingsScreen(navController: NavController) {
 @Preview
 @Composable
 fun CreateSettingsPreview() {
-
     val navController: NavController = rememberNavController()
 
     MatappTheme {

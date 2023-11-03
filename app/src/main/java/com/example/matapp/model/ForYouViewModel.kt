@@ -1,7 +1,8 @@
-package com.example.matapp
+package com.example.matapp.model
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.example.matapp.Recipe
+import com.example.matapp.Utility
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -27,10 +28,10 @@ class ForYouViewModel : ViewModel() {
                     }
                 }
                 recipes = fetchedRecipes
-                Log.d("com.example.matapp.ForYouViewModel", "Fetched ${fetchedRecipes.size} recipes")
+                Utility.showLogcatDebug("Fetched ${fetchedRecipes.size} recipes")
             }
             override fun onCancelled(error: DatabaseError) {
-                Log.e("com.example.matapp.ForYouViewModel", "Firebase data loading cancelled: $error")
+                Utility.showLogcatError("Firebase data loading cancelled: $error")
             }
         })
     }

@@ -1,4 +1,4 @@
-package com.example.matapp
+package com.example.matapp.screens
 
 import BottomNavBar
 import Screen
@@ -29,11 +29,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -41,17 +47,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.matapp.R
+import com.example.matapp.Recipe
+import com.example.matapp.Utility
+import com.example.matapp.model.ForYouViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 class ForYouActivityCompose : AppCompatActivity() {
     private val viewModel: ForYouViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
             val navController = rememberNavController()
             ForYouLayout(navController = navController, viewModel = viewModel)
-
         }
     }
 }
@@ -59,6 +69,7 @@ class ForYouActivityCompose : AppCompatActivity() {
 @Composable
 fun ForYouLayout(navController: NavController, viewModel: ForYouViewModel) {
     val userId by lazy { FirebaseAuth.getInstance().currentUser?.uid }
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         viewModel.loadRecipesFromFirebase()
@@ -68,11 +79,13 @@ fun ForYouLayout(navController: NavController, viewModel: ForYouViewModel) {
         val nextRecipe = viewModel.getNextRecipe()
         if (nextRecipe != null) {
             viewModel.incrementCurrentRecipeIndex()
+            viewModel.loadRecipesFromFirebase()
         }
     }
 
     val onSave = {
         viewModel.saveCurrentRecipe(userId.toString())
+        Utility.showError(context, "Recipe saved!")
     }
 
     Column(
@@ -92,10 +105,9 @@ fun ForYouLayout(navController: NavController, viewModel: ForYouViewModel) {
             recipes = viewModel.recipes,
             onNextRecipe = onNextRecipe,
             onSave = onSave,
-            currentRecipeIndex = viewModel.currentRecipeIndex
+            currentRecipeIndex = viewModel.currentRecipeIndex,
         )
 
-        //Spacer(modifier = Modifier.height(16.dp))
         Spacer(modifier = Modifier.weight(1f))
 
         BottomNavBar(
@@ -118,109 +130,108 @@ fun ForYouLayout(navController: NavController, viewModel: ForYouViewModel) {
 
 
 @Composable
-fun RecipeCard(recipe: Recipe, onNextRecipe: () -> Unit, onSave: () -> Unit) {
-    val navController = rememberNavController()
+fun RecipeCard(recipe: Recipe, onNextRecipe: () -> Unit, onSave: () -> Unit, refreshState: Int) {
     val customTextStyle = TextStyle(
         fontSize = 20.sp,
         fontWeight = FontWeight.Bold,
         color = Color.White
     )
-
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(300.dp)
-            .padding(8.dp)
-            .clip(MaterialTheme.shapes.medium)
-    ) {
-        Box(
+    key(refreshState) {
+        Card(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
+                .height(300.dp)
                 .padding(8.dp)
+                .clip(MaterialTheme.shapes.medium)
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
-            )
-
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.DarkGray.copy(alpha = 0.6f)) //
-                    .padding(16.dp)
+                    .fillMaxSize()
+                    .padding(8.dp)
             ) {
-                Column(
+                Image(
+                    painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.SpaceBetween
+                        .fillMaxWidth()
+                        .height(200.dp)
+                )
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color.DarkGray.copy(alpha = 0.6f)) //
+                        .padding(16.dp)
                 ) {
-                    Text(
-                        text = recipe.title,
-                        style = customTextStyle,
-                        color = Color.White
-                    )
-
-                    Text(
-                        text = "Cook Time: ${recipe.cookTime} minutes",
-                        style = TextStyle(
-                            fontSize = 14.sp,
-                            color = Color.White
-                        )
-                    )
-
-                    Text(
-                        text = "Difficulty: ${recipe.difficulty}",
-                        style = TextStyle(
-                            fontSize = 14.sp,
-                            color = Color.White
-                        )
-                    )
-
-                    Text(
-                        text = "Vegan: ${if (recipe.isVegan) "Yes" else "No"}",
-                        style = TextStyle(
-                            fontSize = 14.sp,
-                            color = Color.White
-                        )
-                    )
-
-                    Text(
-                        text = "Spice Level: ${recipe.spiceLevel}",
-                        style = TextStyle(
-                            fontSize = 14.sp,
-                            color = Color.White
-                        )
-                    )
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
+                        verticalArrangement = Arrangement.SpaceBetween
                     ) {
+                        Text(
+                            text = recipe.title,
+                            style = customTextStyle,
+                            color = Color.White
+                        )
 
-                        IconButton(
-                            onClick = {
-                                onNextRecipe()
-                                //navController.navigate(Screen.ForYou.route)
+                        Text(
+                            text = "Cook Time: ${recipe.cookTime} minutes",
+                            style = TextStyle(
+                                fontSize = 14.sp,
+                                color = Color.White
+                            )
+                        )
+
+                        Text(
+                            text = "Difficulty: ${recipe.difficulty}",
+                            style = TextStyle(
+                                fontSize = 14.sp,
+                                color = Color.White
+                            )
+                        )
+
+                        Text(
+                            text = "Vegan: ${if (recipe.isVegan) "Yes" else "No"}",
+                            style = TextStyle(
+                                fontSize = 14.sp,
+                                color = Color.White
+                            )
+                        )
+
+                        Text(
+                            text = "Spice Level: ${recipe.spiceLevel}",
+                            style = TextStyle(
+                                fontSize = 14.sp,
+                                color = Color.White
+                            )
+                        )
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+
+                            IconButton(
+                                onClick = {
+                                    onNextRecipe()
                                 },
-                            modifier = Modifier.size(48.dp),
-                            content = {
-                                Icon(imageVector = Icons.Default.ArrowForward, contentDescription = "Next Recipe")
-                            }
-                        )
+                                modifier = Modifier.size(48.dp),
+                                content = {
+                                    Icon(imageVector = Icons.Default.ArrowForward, contentDescription = "Next Recipe")
+                                }
+                            )
 
-                        IconButton(
-                            onClick = { onSave() },
-                            modifier = Modifier.size(48.dp),
-                            content = {
-                                Icon(imageVector = Icons.Default.Favorite, contentDescription = "Save Recipe")
-                            }
-                        )
+                            IconButton(
+                                onClick = { onSave() },
+                                modifier = Modifier.size(48.dp),
+                                content = {
+                                    Icon(imageVector = Icons.Default.Favorite, contentDescription = "Save Recipe")
+                                }
+                            )
+                        }
                     }
                 }
             }
@@ -238,12 +249,15 @@ fun RecipeCardStack(
     val currentRecipe = recipes.getOrNull(currentRecipeIndex)
 
     currentRecipe?.let { recipe ->
+        var refreshState by remember { mutableIntStateOf(0) }
         RecipeCard(
             recipe = currentRecipe,
             onNextRecipe = {
                 onNextRecipe()
+                refreshState++
             },
-            onSave = onSave
+            onSave = onSave,
+            refreshState = refreshState
         )
     }
 }

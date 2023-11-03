@@ -1,5 +1,7 @@
+
 import androidx.lifecycle.ViewModel
 import com.example.matapp.Recipe
+import com.example.matapp.Utility
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -16,6 +18,7 @@ class SavedRecipesViewModel : ViewModel() {
     val savedRecipes: StateFlow<List<Recipe>> = _savedRecipes
 
     fun loadSavedRecipesFromFirebase() {
+
         userId?.let { uid ->
             val userRecipesRef = database.child(uid).child("saved_recipes")
 
@@ -32,7 +35,7 @@ class SavedRecipesViewModel : ViewModel() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    // Handle error if needed
+                    Utility.showLogcatError("Can't import data from database.")
                 }
             })
         }

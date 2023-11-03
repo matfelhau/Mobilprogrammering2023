@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Matapp"
         tools:targetApi="31">
         <activity
-            android:name=".CreateRecipeActivityCompose"
+            android:name=".screens.CreateRecipeActivityCompose"
             android:exported="false"
             android:label="@string/title_activity_create_recipe_compose"
             android:theme="@style/Theme.Matapp" />
@@ -33,7 +33,7 @@
             android:label="@string/title_activity_saved_compose"
             android:theme="@style/Theme.Matapp" />
         <activity
-            android:name=".ForYouActivityCompose"
+            android:name=".screens.ForYouActivityCompose"
             android:exported="false"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.Matapp" />

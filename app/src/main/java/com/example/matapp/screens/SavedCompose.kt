@@ -1,4 +1,4 @@
-package com.example.matapp
+package com.example.matapp.screens
 
 import BottomNavBar
 import SavedRecipesViewModel
@@ -6,21 +6,28 @@ import Screen
 import TopNavBar
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,6 +35,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.matapp.Recipe
+import com.example.matapp.Utility
 import com.example.matapp.ui.theme.MatappTheme
 
 @Composable
@@ -57,6 +66,7 @@ fun SavedLayout(navController: NavController, savedRecipesViewModel: SavedRecipe
             }
         }
         Spacer(modifier = Modifier.weight(1f))
+
         BottomNavBar(
             onForYouClick = {
                 navController.navigate(Screen.ForYou.route)
@@ -76,6 +86,7 @@ fun SavedLayout(navController: NavController, savedRecipesViewModel: SavedRecipe
 
 @Composable
 fun SavedRecipeItem(recipe: Recipe) {
+    val context = LocalContext.current
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -108,12 +119,26 @@ fun SavedRecipeItem(recipe: Recipe) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Button(
-                onClick = {
-                    //TO DO Implement logic to view the recipe or perform actions
+            Row {
+                Button(
+                    onClick = {
+                        Utility.showError(context = context, "Coming soon!")
+                    }
+                ) {
+                    Text(text = "View Recipe")
                 }
-            ) {
-                Text(text = "View Recipe")
+
+                Spacer(modifier = Modifier.width(200.dp))
+
+                IconButton(
+                    onClick = {
+                              Utility.showError(context = context, "Coming soon!")
+
+                    },
+                    content = {
+                        Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete saved recipe")
+                    }
+                )
             }
         }
     }
@@ -122,7 +147,6 @@ fun SavedRecipeItem(recipe: Recipe) {
 
 @Composable
 fun CreateSavedScreen(navController: NavController, savedRecipesViewModel: SavedRecipesViewModel) {
-
     SavedLayout(navController, savedRecipesViewModel)
 }
 

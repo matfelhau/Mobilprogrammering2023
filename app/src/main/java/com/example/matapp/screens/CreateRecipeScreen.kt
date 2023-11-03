@@ -1,7 +1,5 @@
 
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -19,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.matapp.Utility
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -62,6 +61,13 @@ class CreateRecipeScreen : ComponentActivity() {
         }
         super.onBackPressed()
     }
+
+    override fun onContentChanged() {
+        if (!dataAdded) {
+            database.child(recipeId).removeValue()
+        }
+        super.onContentChanged()
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -86,10 +92,6 @@ fun CreateRecipeLayout(
     var checkbox2State by remember { mutableStateOf(false) }
     var checkbox3State by remember { mutableStateOf(false) }
     var checkbox4State by remember { mutableStateOf(false) }
-
-    fun showError(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-    }
 
     fun onCheckbox1Clicked() {
         checkbox1State = !checkbox1State
@@ -182,7 +184,6 @@ fun CreateRecipeLayout(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Display added ingredients
             LazyColumn {
                 items(addedIngredients.toList()) { ingredient ->
                     Text(
@@ -201,7 +202,7 @@ fun CreateRecipeLayout(
                 onClick = {
 
                     if (ingredient.isEmpty() || quantity.isEmpty() || measuringUnit.isEmpty()) {
-                        showError("Please fill out all fields.")
+                        Utility.showError(context, "Please fill out all fields.")
                     } else {
                         val ingredientData = mapOf(
                             "name" to ingredient,
@@ -219,7 +220,7 @@ fun CreateRecipeLayout(
                                     quantity = ""
                                     measuringUnit = ""
 
-                                    showError("Data added to Firebase Database")
+                                    Utility.showError(context, "Data added to Firebase Database")
                                 }
                         }
                     }
@@ -392,6 +393,11 @@ fun CreateRecipeLayout(
 
         Button(
             onClick = {
+                if (title.isEmpty()) Utility.showError(context, "Please enter a title.")
+                if (cookTime.isEmpty()) Utility.showError(context, "Please enter a cook time.")
+                if (selectedDifficulty.isEmpty()) Utility.showError(context, "Please choose a difficulty.")
+                if (selectedSpiceLevel.isEmpty()) Utility.showError(context, "Please choose a spice level.")
+
                 val allergens = mapOf(
                     "gluten" to checkbox1State,
                     "nuts" to checkbox4State,
@@ -411,12 +417,18 @@ fun CreateRecipeLayout(
                 )
 
                 database.child(recipeId!!).updateChildren(recipeData).addOnSuccessListener {
-                    showError("Success!")
-                    Log.d("FirebaseDebug", "Data written successfully!")
+                    Utility.showError(context, "Success!")
+                    Utility.showLogcatDebug("Data written successfully!")
                     dataAdded = true
+
+                    title = ""
+                    cookTime = ""
+                    selectedDifficulty = ""
+                    selectedSpiceLevel = ""
+
                 }.addOnFailureListener { exception ->
-                    showError("Error!")
-                    Log.e("FirebaseDebug", "Error writing data: ", exception)
+                    Utility.showError(context, "Error!")
+                    Utility.showLogcatError("Error writing data: $exception")
                 }
             }
         ) {
