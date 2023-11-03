@@ -56,7 +56,7 @@ fun SavedLayout(navController: NavController, savedRecipesViewModel: SavedRecipe
                 SavedRecipeItem(recipe = recipe)
             }
         }
-
+        Spacer(modifier = Modifier.weight(1f))
         BottomNavBar(
             onForYouClick = {
                 navController.navigate(Screen.ForYou.route)
