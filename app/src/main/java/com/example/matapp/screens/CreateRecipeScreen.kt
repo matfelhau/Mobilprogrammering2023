@@ -236,108 +236,117 @@ fun CreateRecipeLayout(
             }
         }
         var isExpandedDifficulty by remember { mutableStateOf(false) }
-
-        Row(
+        Column(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            ExposedDropdownMenuBox(
-                expanded = isExpandedDifficulty,
-                onExpandedChange = {isExpandedDifficulty = it}
+            verticalArrangement = Arrangement.Center,
             ) {
-                TextField(
-                    value = selectedDifficulty,
-                    onValueChange = {},
-                    readOnly = true,
-                    trailingIcon = {
-                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpandedDifficulty)
-                    },
-                    colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                    modifier = Modifier.menuAnchor(),
-                    placeholder = {Text(text="Choose difficulty level")}
-                )
 
-                ExposedDropdownMenu(expanded = isExpandedDifficulty,
-                    onDismissRequest = { isExpandedDifficulty = false }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+            ) {
+                ExposedDropdownMenuBox(
+                    expanded = isExpandedDifficulty,
+                    onExpandedChange = { isExpandedDifficulty = it }
                 ) {
-                    DropdownMenuItem(
-                        text = {
-                            Text(text = "Easy")
+                    TextField(
+                        value = selectedDifficulty,
+                        onValueChange = {},
+                        readOnly = true,
+                        trailingIcon = {
+                            ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpandedDifficulty)
                         },
-                        onClick = {
-                            selectedDifficulty = "Easy"
-                            isExpandedDifficulty = false
-                        }
+                        colors = ExposedDropdownMenuDefaults.textFieldColors(),
+                        modifier = Modifier.menuAnchor(),
+                        placeholder = { Text(text = "Choose difficulty level") }
                     )
-                    DropdownMenuItem(
-                        text = {
-                            Text(text = "Intermediate")
-                        },
-                        onClick = {
-                            selectedDifficulty = "Intermediate"
-                            isExpandedDifficulty = false
-                        }
-                    )
-                    DropdownMenuItem(
-                        text = {
-                            Text(text = "Advanced")
-                        },
-                        onClick = {
-                            selectedDifficulty = "Advanced"
-                            isExpandedDifficulty = false
-                        }
-                    )
+
+                    ExposedDropdownMenu(expanded = isExpandedDifficulty,
+                        onDismissRequest = { isExpandedDifficulty = false }
+                    ) {
+                        DropdownMenuItem(
+                            text = {
+                                Text(text = "Easy")
+                            },
+                            onClick = {
+                                selectedDifficulty = "Easy"
+                                isExpandedDifficulty = false
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = {
+                                Text(text = "Intermediate")
+                            },
+                            onClick = {
+                                selectedDifficulty = "Intermediate"
+                                isExpandedDifficulty = false
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = {
+                                Text(text = "Advanced")
+                            },
+                            onClick = {
+                                selectedDifficulty = "Advanced"
+                                isExpandedDifficulty = false
+                            }
+                        )
+                    }
                 }
             }
 
-            var isExpandedSpice by remember { mutableStateOf(false) }
-
-            ExposedDropdownMenuBox(
-                expanded = isExpandedSpice,
-                onExpandedChange = {isExpandedSpice = it}
+                var isExpandedSpice by remember { mutableStateOf(false) }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
             ) {
-                TextField(
-                    value = selectedSpiceLevel,
-                    onValueChange = {},
-                    readOnly = true,
-                    trailingIcon = {
-                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpandedSpice)
-                    },
-                    colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                    modifier = Modifier.menuAnchor(),
-                    placeholder = {Text(text="Choose spice level")}
-                )
-
-                ExposedDropdownMenu(expanded = isExpandedSpice,
-                    onDismissRequest = { isExpandedSpice = false }
+                ExposedDropdownMenuBox(
+                    expanded = isExpandedSpice,
+                    onExpandedChange = { isExpandedSpice = it }
                 ) {
-                    DropdownMenuItem(
-                        text = {
-                            Text(text = "Mild")
+                    TextField(
+                        value = selectedSpiceLevel,
+                        onValueChange = {},
+                        readOnly = true,
+                        trailingIcon = {
+                            ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpandedSpice)
                         },
-                        onClick = {
-                            selectedSpiceLevel = "Mild"
-                            isExpandedSpice = false
-                        }
+                        colors = ExposedDropdownMenuDefaults.textFieldColors(),
+                        modifier = Modifier.menuAnchor(),
+                        placeholder = { Text(text = "Choose spice level") }
                     )
-                    DropdownMenuItem(
-                        text = {
-                            Text(text = "Intermediate")
-                        },
-                        onClick = {
-                            selectedSpiceLevel = "Intermediate"
-                            isExpandedSpice = false
-                        }
-                    )
-                    DropdownMenuItem(
-                        text = {
-                            Text(text = "Advanced")
-                        },
-                        onClick = {
-                            selectedSpiceLevel = "Advanced"
-                            isExpandedSpice = false
-                        }
-                    )
+
+                    ExposedDropdownMenu(expanded = isExpandedSpice,
+                        onDismissRequest = { isExpandedSpice = false }
+                    ) {
+                        DropdownMenuItem(
+                            text = {
+                                Text(text = "Mild")
+                            },
+                            onClick = {
+                                selectedSpiceLevel = "Mild"
+                                isExpandedSpice = false
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = {
+                                Text(text = "Intermediate")
+                            },
+                            onClick = {
+                                selectedSpiceLevel = "Intermediate"
+                                isExpandedSpice = false
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = {
+                                Text(text = "Advanced")
+                            },
+                            onClick = {
+                                selectedSpiceLevel = "Advanced"
+                                isExpandedSpice = false
+                            }
+                        )
+                    }
                 }
             }
         }
