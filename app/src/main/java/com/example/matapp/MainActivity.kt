@@ -3,7 +3,6 @@ package com.example.matapp
 import CreateRecipeLayout
 import LoginScreen
 import ProfilePictureLayout
-import SavedRecipesViewModel
 import Screen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -13,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.matapp.model.ForYouViewModel
+import com.example.matapp.model.SavedRecipesViewModel
 import com.example.matapp.screens.ForYouLayout
 import com.example.matapp.screens.SavedLayout
 import com.example.matapp.screens.SearchLayout

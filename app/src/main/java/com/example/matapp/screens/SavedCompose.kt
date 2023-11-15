@@ -1,7 +1,6 @@
 package com.example.matapp.screens
 
 import BottomNavBar
-import SavedRecipesViewModel
 import Screen
 import TopNavBar
 import androidx.compose.foundation.background
@@ -37,6 +36,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.matapp.Recipe
 import com.example.matapp.Utility
+import com.example.matapp.model.SavedRecipesViewModel
 import com.example.matapp.ui.theme.MatappTheme
 
 @Composable

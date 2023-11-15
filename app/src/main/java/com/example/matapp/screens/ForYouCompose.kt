@@ -29,6 +29,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableIntStateOf
@@ -53,6 +54,7 @@ import com.example.matapp.Utility
 import com.example.matapp.model.ForYouViewModel
 import com.google.firebase.auth.FirebaseAuth
 
+
 class ForYouActivityCompose : AppCompatActivity() {
     private val viewModel: ForYouViewModel by viewModels()
 
@@ -68,6 +70,9 @@ class ForYouActivityCompose : AppCompatActivity() {
 
 @Composable
 fun ForYouLayout(navController: NavController, viewModel: ForYouViewModel) {
+    val recipes by viewModel.recipes.collectAsState()
+    val currentRecipeIndex by viewModel.currentRecipeIndex.collectAsState()
+
     val userId by lazy { FirebaseAuth.getInstance().currentUser?.uid }
     val context = LocalContext.current
 
@@ -76,11 +81,9 @@ fun ForYouLayout(navController: NavController, viewModel: ForYouViewModel) {
     }
 
     val onNextRecipe = {
-        val nextRecipe = viewModel.getNextRecipe()
-        if (nextRecipe != null) {
-            viewModel.incrementCurrentRecipeIndex()
-            viewModel.loadRecipesFromFirebase()
-        }
+        Utility.showLogcatDebug("ForYouCompose: onNextRecipe function clicked")
+        viewModel.getNextRecipe()
+        Utility.showLogcatDebug("ForYouCompose: Current recipe index is: ${viewModel.currentRecipeIndex}")
     }
 
     val onSave = {
@@ -102,10 +105,10 @@ fun ForYouLayout(navController: NavController, viewModel: ForYouViewModel) {
         )
 
         RecipeCardStack(
-            recipes = viewModel.recipes,
+            recipes = recipes,
             onNextRecipe = onNextRecipe,
             onSave = onSave,
-            currentRecipeIndex = viewModel.currentRecipeIndex,
+            currentRecipeIndex = currentRecipeIndex,
         )
 
         Spacer(modifier = Modifier.weight(1f))
@@ -130,7 +133,7 @@ fun ForYouLayout(navController: NavController, viewModel: ForYouViewModel) {
 
 
 @Composable
-fun RecipeCard(recipe: Recipe, onNextRecipe: () -> Unit, onSave: () -> Unit, refreshState: Int) {
+fun RecipeCard(recipe: Recipe, nextRecipe: () -> Unit, onSave: () -> Unit, refreshState: Int) {
     val customTextStyle = TextStyle(
         fontSize = 20.sp,
         fontWeight = FontWeight.Bold,
@@ -216,7 +219,7 @@ fun RecipeCard(recipe: Recipe, onNextRecipe: () -> Unit, onSave: () -> Unit, ref
 
                             IconButton(
                                 onClick = {
-                                    onNextRecipe()
+                                    nextRecipe()
                                 },
                                 modifier = Modifier.size(48.dp),
                                 content = {
@@ -251,10 +254,11 @@ fun RecipeCardStack(
     currentRecipe?.let { recipe ->
         var refreshState by remember { mutableIntStateOf(0) }
         RecipeCard(
-            recipe = currentRecipe,
-            onNextRecipe = {
+            recipe = recipe,
+            nextRecipe = {
                 onNextRecipe()
                 refreshState++
+                Utility.showLogcatDebug("ForYouCompose: Refresh state is: $refreshState")
             },
             onSave = onSave,
             refreshState = refreshState

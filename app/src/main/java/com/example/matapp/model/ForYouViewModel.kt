@@ -8,10 +8,16 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 class ForYouViewModel : ViewModel() {
-    var currentRecipeIndex = 0
-    var recipes: List<Recipe> = emptyList()
+    private val _currentRecipeIndex = MutableStateFlow(0)
+    val currentRecipeIndex: StateFlow<Int> = _currentRecipeIndex
+
+    private val _recipes = MutableStateFlow<List<Recipe>>(emptyList())
+    val recipes: StateFlow<List<Recipe>> = _recipes
+
     private val database: DatabaseReference = FirebaseDatabase.getInstance().reference
 
     fun loadRecipesFromFirebase() {
@@ -27,7 +33,7 @@ class ForYouViewModel : ViewModel() {
                         fetchedRecipes.add(recipe)
                     }
                 }
-                recipes = fetchedRecipes
+                _recipes.value = fetchedRecipes
                 Utility.showLogcatDebug("Fetched ${fetchedRecipes.size} recipes")
             }
             override fun onCancelled(error: DatabaseError) {
@@ -37,15 +43,15 @@ class ForYouViewModel : ViewModel() {
     }
 
     fun getNextRecipe(): Recipe? {
-        if (recipes.isEmpty()) return null
+        if (_recipes.value.isEmpty()) return null
 
-        val newIndex = (currentRecipeIndex + 1) % recipes.size
-        currentRecipeIndex = newIndex
-        return recipes[newIndex]
+        val newIndex = (_currentRecipeIndex.value + 1) % _recipes.value.size
+        _currentRecipeIndex.value = newIndex
+        return _recipes.value[newIndex]
     }
 
     fun saveCurrentRecipe(userId: String) {
-        val currentRecipe = recipes.getOrNull(currentRecipeIndex)
+        val currentRecipe = _recipes.value?.getOrNull(_currentRecipeIndex.value!!)
         if (currentRecipe != null) {
             val userRecipesRef = database.child("users").child(userId).child("saved_recipes")
             val recipeId = userRecipesRef.push().key
@@ -56,9 +62,9 @@ class ForYouViewModel : ViewModel() {
     }
 
     fun incrementCurrentRecipeIndex() {
-        if (recipes.isNotEmpty()) {
-            val newIndex = (currentRecipeIndex + 1) % recipes.size
-            currentRecipeIndex = newIndex
+        if (!_recipes.value.isNullOrEmpty()) {
+            val newIndex = (_currentRecipeIndex.value!! + 1) % _recipes.value!!.size
+            _currentRecipeIndex.value = newIndex
         }
     }
 }
