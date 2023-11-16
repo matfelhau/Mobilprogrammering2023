@@ -17,6 +17,7 @@ import com.example.matapp.screens.ForYouLayout
 import com.example.matapp.screens.SavedLayout
 import com.example.matapp.screens.SearchLayout
 import com.example.matapp.screens.SettingsLayout
+import com.example.matapp.screens.ShowRecipeLayout
 import com.example.matapp.ui.theme.MatappTheme
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -71,6 +72,9 @@ class MainActivity : ComponentActivity() {
                     }
                     composable(Screen.Profile.route) {
                         ProfilePictureLayout(navController)
+                    }
+                    composable(Screen.Recipe.route) {
+                        ShowRecipeLayout(navController)
                     }
                 }
             }

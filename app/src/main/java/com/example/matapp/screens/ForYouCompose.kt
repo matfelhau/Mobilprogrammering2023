@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -33,6 +34,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -91,6 +93,8 @@ fun ForYouLayout(navController: NavController, viewModel: ForYouViewModel) {
         Utility.showError(context, "Recipe saved!")
     }
 
+    var selectedRecipe by remember { mutableStateOf<Recipe?>(null) }
+
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
@@ -109,6 +113,10 @@ fun ForYouLayout(navController: NavController, viewModel: ForYouViewModel) {
             onNextRecipe = onNextRecipe,
             onSave = onSave,
             currentRecipeIndex = currentRecipeIndex,
+            onShowRecipe = { recipe ->
+                selectedRecipe = recipe
+                navController.navigate(Screen.Recipe.route)
+            }
         )
 
         Spacer(modifier = Modifier.weight(1f))
@@ -133,11 +141,12 @@ fun ForYouLayout(navController: NavController, viewModel: ForYouViewModel) {
 
 
 @Composable
-fun RecipeCard(recipe: Recipe, nextRecipe: () -> Unit, onSave: () -> Unit, refreshState: Int) {
+fun RecipeCard(onShowRecipe: () -> Unit, recipe: Recipe, nextRecipe: () -> Unit, onSave: () -> Unit, refreshState: Int) {
     val customTextStyle = TextStyle(
         fontSize = 20.sp,
         fontWeight = FontWeight.Bold,
-        color = Color.White
+        color = Color.White,
+
     )
     key(refreshState) {
         Card(
@@ -234,6 +243,14 @@ fun RecipeCard(recipe: Recipe, nextRecipe: () -> Unit, onSave: () -> Unit, refre
                                     Icon(imageVector = Icons.Default.Favorite, contentDescription = "Save Recipe")
                                 }
                             )
+
+                            IconButton(
+                                onClick = { onShowRecipe() },
+                                modifier = Modifier.size(48.dp),
+                                content = {
+                                    Icon(imageVector = Icons.Default.List, contentDescription = "Show Recipe")
+                                }
+                            )
                         }
                     }
                 }
@@ -247,7 +264,8 @@ fun RecipeCardStack(
     recipes: List<Recipe>,
     onNextRecipe: () -> Unit,
     onSave: () -> Unit,
-    currentRecipeIndex: Int
+    currentRecipeIndex: Int,
+    onShowRecipe: (Recipe) -> Unit
 ) {
     val currentRecipe = recipes.getOrNull(currentRecipeIndex)
 
@@ -261,7 +279,8 @@ fun RecipeCardStack(
                 Utility.showLogcatDebug("ForYouCompose: Refresh state is: $refreshState")
             },
             onSave = onSave,
-            refreshState = refreshState
+            refreshState = refreshState,
+            onShowRecipe = { onShowRecipe(recipe) }
         )
     }
 }
