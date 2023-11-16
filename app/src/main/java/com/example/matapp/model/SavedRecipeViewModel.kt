@@ -1,4 +1,5 @@
 package com.example.matapp.model
+
 import androidx.lifecycle.ViewModel
 import com.example.matapp.Recipe
 import com.example.matapp.Utility
