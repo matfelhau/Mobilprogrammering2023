@@ -85,9 +85,12 @@
     <string name="change_email">Change email</string>
     <string name="notifications">Notifications</string>
     <string name="vegan_mode">Vegan mode</string>
+    <string name="recipe">Recipe</string>
+    <string name="show_recipe">Show Recipe</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_saved_compose">SavedActivityCompose</string>
     <string name="title_activity_search_compose">SearchActivityCompose</string>
     <string name="title_activity_settings_compose">SettingsActivityCompose</string>
     <string name="title_activity_create_recipe_compose">CreateRecipeActivityCompose</string>
+    <string name="title_activity_show_recipe_screen">ShowRecipeScreen</string>
 </resources>
