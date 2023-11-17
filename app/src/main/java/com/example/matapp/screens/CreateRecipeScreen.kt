@@ -1,6 +1,8 @@
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,22 +19,17 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.matapp.Utility
+import com.example.matapp.model.CreateRecipeViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-private var dataAdded = false
 class CreateRecipeScreen : ComponentActivity() {
-    private lateinit var recipeId: String
-    private val database by lazy { FirebaseDatabase.getInstance().getReference("recipes") }
+    private val recipeId by lazy { FirebaseDatabase.getInstance().getReference("recipes").push().key.toString() }
     private val userId by lazy { FirebaseAuth.getInstance().currentUser?.uid }
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        initializeRecipe()
-
         super.onCreate(savedInstanceState)
-
-        recipeId = database.push().key.toString()
+        val recipeViewModel: CreateRecipeViewModel by viewModels()
+        recipeViewModel.initializeRecipe(userId, recipeId)
 
         setContent {
             val navController = rememberNavController()
@@ -40,33 +37,9 @@ class CreateRecipeScreen : ComponentActivity() {
                 navController = navController,
                 recipeId = recipeId,
                 userId = userId,
-                database = database
-                )
+                recipeViewModel = recipeViewModel
+            )
         }
-    }
-    private fun initializeRecipe() {
-        val initialRecipeData = mapOf(
-            "userId" to userId,
-            "title" to "",
-            "cookTime" to "",
-            "difficulty" to "",
-            "spiceLevel" to ""
-        )
-        database.child(recipeId).setValue(initialRecipeData)
-    }
-
-    override fun onBackPressed() {
-        if (!dataAdded) {
-            database.child(recipeId).removeValue()
-        }
-        super.onBackPressed()
-    }
-
-    override fun onContentChanged() {
-        if (!dataAdded) {
-            database.child(recipeId).removeValue()
-        }
-        super.onContentChanged()
     }
 }
 
@@ -76,7 +49,7 @@ fun CreateRecipeLayout(
     navController: NavController,
     recipeId: String,
     userId: String?,
-    database: DatabaseReference
+    recipeViewModel: CreateRecipeViewModel
 ) {
     val context = LocalContext.current
     var title by remember { mutableStateOf("") }
@@ -87,26 +60,40 @@ fun CreateRecipeLayout(
     var selectedSpiceLevel by remember { mutableStateOf("") }
     var selectedDifficulty by remember { mutableStateOf("") }
     val addedIngredients = remember { mutableStateListOf<String>() }
+    var checkboxGlutenState by remember { mutableStateOf(false) }
+    var checkboxVeganState by remember { mutableStateOf(false) }
+    var checkboxSoyState by remember { mutableStateOf(false) }
+    var checkboxNutsState by remember { mutableStateOf(false) }
 
-    var checkbox1State by remember { mutableStateOf(false) }
-    var checkbox2State by remember { mutableStateOf(false) }
-    var checkbox3State by remember { mutableStateOf(false) }
-    var checkbox4State by remember { mutableStateOf(false) }
-
-    fun onCheckbox1Clicked() {
-        checkbox1State = !checkbox1State
+    LaunchedEffect(key1 = recipeId) {
+        title = ""
+        cookTime = ""
+        ingredient = ""
+        quantity = ""
+        measuringUnit = ""
+        selectedSpiceLevel = ""
+        selectedDifficulty = ""
+        addedIngredients.clear()
+        checkboxGlutenState = false
+        checkboxVeganState = false
+        checkboxSoyState = false
+        checkboxNutsState = false
     }
 
-    fun onCheckbox2Clicked() {
-        checkbox2State = !checkbox2State
+    fun onCheckboxGlutenClicked() {
+        checkboxGlutenState = !checkboxGlutenState
     }
 
-    fun onCheckbox3Clicked() {
-        checkbox3State = !checkbox3State
+    fun onCheckboxVeganClicked() {
+        checkboxVeganState = !checkboxVeganState
     }
 
-    fun onCheckbox4Clicked() {
-        checkbox4State = !checkbox4State
+    fun onCheckboxSoyClicked() {
+        checkboxSoyState = !checkboxSoyState
+    }
+
+    fun onCheckboxNutsClicked() {
+        checkboxNutsState = !checkboxNutsState
     }
 
     Column(
@@ -200,30 +187,7 @@ fun CreateRecipeLayout(
             // ADD INGREDIENTS
             Button(
                 onClick = {
-
-                    if (ingredient.isEmpty() || quantity.isEmpty() || measuringUnit.isEmpty()) {
-                        Utility.showError(context, "Please fill out all fields.")
-                    } else {
-                        val ingredientData = mapOf(
-                            "name" to ingredient,
-                            "quantity" to quantity,
-                            "unit" to measuringUnit
-                        )
-
-                        recipeId?.let {
-                            database.child(it).child("ingredients").push().setValue(ingredientData)
-                                .addOnSuccessListener {
-                                    addedIngredients.add("$ingredient $quantity $measuringUnit")
-                                    dataAdded = true
-
-                                    ingredient = ""
-                                    quantity = ""
-                                    measuringUnit = ""
-
-                                    Utility.showError(context, "Data added to Firebase Database")
-                                }
-                        }
-                    }
+                          recipeViewModel.addIngredient(recipeId, ingredient, quantity, measuringUnit)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -360,8 +324,8 @@ fun CreateRecipeLayout(
                 modifier = Modifier.weight(1f)
             ) {
                 Checkbox(
-                    checked = checkbox1State,
-                    onCheckedChange = { checked -> onCheckbox1Clicked() },
+                    checked = checkboxGlutenState,
+                    onCheckedChange = { onCheckboxGlutenClicked() },
                 )
                 Text("Gluten")
             }
@@ -371,8 +335,8 @@ fun CreateRecipeLayout(
                 modifier = Modifier.weight(1f)
             ) {
                 Checkbox(
-                    checked = checkbox2State,
-                    onCheckedChange = { checked -> onCheckbox2Clicked() },
+                    checked = checkboxVeganState,
+                    onCheckedChange = { onCheckboxVeganClicked() },
                 )
                 Text("Vegan")
             }
@@ -382,8 +346,8 @@ fun CreateRecipeLayout(
                 modifier = Modifier.weight(1f)
             ) {
                 Checkbox(
-                    checked = checkbox3State,
-                    onCheckedChange = { checked -> onCheckbox3Clicked() },
+                    checked = checkboxSoyState,
+                    onCheckedChange = { onCheckboxSoyClicked() },
                 )
                 Text("Soy")
             }
@@ -393,8 +357,8 @@ fun CreateRecipeLayout(
                 modifier = Modifier.weight(1f)
             ) {
                 Checkbox(
-                    checked = checkbox4State,
-                    onCheckedChange = { checked -> onCheckbox4Clicked() },
+                    checked = checkboxNutsState,
+                    onCheckedChange = { onCheckboxNutsClicked() },
                 )
                 Text("Nuts")
             }
@@ -408,37 +372,21 @@ fun CreateRecipeLayout(
                 if (selectedSpiceLevel.isEmpty()) Utility.showError(context, "Please choose a spice level.")
 
                 val allergens = mapOf(
-                    "gluten" to checkbox1State,
-                    "nuts" to checkbox4State,
-                    "soy" to checkbox3State,
+                    "gluten" to checkboxGlutenState,
+                    "nuts" to checkboxNutsState,
+                    "soy" to checkboxSoyState,
                 )
 
-
-                val recipeData = mapOf(
-                    "userId" to userId,
-                    "title" to title,
-                    "cookTime" to cookTime,
-                    "difficulty" to selectedDifficulty,
-                    "spiceLevel" to selectedSpiceLevel,
-                    "isVegan" to checkbox2State,
-                    "allergens" to allergens
-
+                recipeViewModel.createRecipeAndAddToDatabase(
+                    recipeId,
+                    userId,
+                    title,
+                    cookTime,
+                    selectedDifficulty,
+                    selectedSpiceLevel,
+                    checkboxVeganState,
+                    allergens
                 )
-
-                database.child(recipeId!!).updateChildren(recipeData).addOnSuccessListener {
-                    Utility.showError(context, "Success!")
-                    Utility.showLogcatDebug("Data written successfully!")
-                    dataAdded = true
-
-                    title = ""
-                    cookTime = ""
-                    selectedDifficulty = ""
-                    selectedSpiceLevel = ""
-
-                }.addOnFailureListener { exception ->
-                    Utility.showError(context, "Error!")
-                    Utility.showLogcatError("Error writing data: $exception")
-                }
             }
         ) {
             Text(

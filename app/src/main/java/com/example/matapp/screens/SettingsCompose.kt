@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.matapp.DatabaseUtils
 import com.example.matapp.R
 import com.example.matapp.Utility
 import com.example.matapp.ui.theme.MatappTheme
@@ -146,6 +147,16 @@ fun SettingsLayout(navController: NavController) {
                     .padding(8.dp)
             ) {
                 Text(text = stringResource(id = R.string.log_out))
+            }
+            
+            Text(text = "Admin panel for sensor/debug")
+            Text(text = "This button deletes empty recipes")
+
+            Button(
+                onClick = {
+                    DatabaseUtils.deleteEmptyRecipes()
+                }) {
+                Text(text = "Delete all recipes")
             }
         }
 

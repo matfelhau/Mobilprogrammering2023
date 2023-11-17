@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.matapp.model.CreateRecipeViewModel
 import com.example.matapp.model.ForYouViewModel
 import com.example.matapp.model.SavedRecipesViewModel
 import com.example.matapp.screens.ForYouLayout
@@ -27,6 +28,7 @@ class MainActivity : ComponentActivity() {
     private val userId by lazy { FirebaseAuth.getInstance().currentUser?.uid }
     private val viewModel: ForYouViewModel by viewModels()
     private val savedRecipesViewModel: SavedRecipesViewModel by viewModels()
+    private val createRecipeViewModel: CreateRecipeViewModel by viewModels()
 
     private fun initializeRecipe() {
         val initialRecipeData = mapOf(
@@ -38,6 +40,11 @@ class MainActivity : ComponentActivity() {
         )
         database.child(recipeId).setValue(initialRecipeData)
     }
+
+    private fun generateNewRecipeId(): String {
+        return FirebaseDatabase.getInstance().getReference("recipes").push().key.toString()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         recipeId = database.push().key.toString()
 
@@ -55,7 +62,7 @@ class MainActivity : ComponentActivity() {
                         LoginScreen(navController)
                     }
                     composable(Screen.ForYou.route) {
-                        ForYouLayout(navController, viewModel = viewModel)
+                        ForYouLayout(navController, viewModel)
                     }
                     composable(Screen.Search.route) {
                         SearchLayout(navController)
@@ -67,7 +74,8 @@ class MainActivity : ComponentActivity() {
                         SettingsLayout(navController)
                     }
                     composable(Screen.Create.route) {
-                        CreateRecipeLayout(navController, recipeId, userId, database)
+                        val newRecipeId = generateNewRecipeId()
+                        CreateRecipeLayout(navController, newRecipeId, userId, createRecipeViewModel)
                     }
                     composable(Screen.Profile.route) {
                         ProfilePictureLayout(navController)
