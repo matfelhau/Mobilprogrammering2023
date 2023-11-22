@@ -24,12 +24,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.matapp.Recipe
 import com.google.firebase.auth.FirebaseAuth
 
 
 
 @Composable
-fun ShowRecipeLayout(navController: NavController) {
+fun ShowRecipeLayout(navController: NavController, recipe: Recipe) {
     val auth = FirebaseAuth.getInstance()
 
     val customTextStyle = TextStyle(
@@ -74,15 +75,13 @@ fun ShowRecipeLayout(navController: NavController) {
                         verticalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            //text = recipe.title,
-                            text = "Hotdog",
+                            text = recipe.title,
                             style = customTextStyle,
                             color = Color.White
                         )
 
                         Text(
-                            //text = "Cook Time: ${recipe.cookTime} minutes",
-                            text = "Cook Time: 8 min",
+                            text = "Cook Time: ${recipe.cookTime} minutes",
                             style = TextStyle(
                                 fontSize = 14.sp,
                                 color = Color.White
@@ -90,8 +89,7 @@ fun ShowRecipeLayout(navController: NavController) {
                         )
 
                         Text(
-                            //text = "Difficulty: ${recipe.difficulty}",
-                            text = "Difficulty: Easy",
+                            text = "Difficulty: ${recipe.difficulty}",
                             style = TextStyle(
                                 fontSize = 14.sp,
                                 color = Color.White
@@ -99,8 +97,7 @@ fun ShowRecipeLayout(navController: NavController) {
                         )
 
                         Text(
-                            //text = "Vegan: ${if (recipe.isVegan) "Yes" else "No"}",
-                            text = "Vegan: No",
+                            text = "Vegan: ${if (recipe.isVegan) "Yes" else "No"}",
                             style = TextStyle(
                                 fontSize = 14.sp,
                                 color = Color.White
@@ -108,8 +105,7 @@ fun ShowRecipeLayout(navController: NavController) {
                         )
 
                         Text(
-                            //text = "Spice Level: ${recipe.spiceLevel}",
-                            text = "Spice Level: Mild",
+                            text = "Spice Level: ${recipe.spiceLevel}",
                             style = TextStyle(
                                 fontSize = 14.sp,
                                 color = Color.White
@@ -126,44 +122,22 @@ fun ShowRecipeLayout(navController: NavController) {
                     }
                 }
             }
+        Spacer(modifier = Modifier.weight(1f))
 
-
-                        Spacer(modifier = Modifier.weight(1f))
-                        BottomNavBar(
-                            onForYouClick = {
-                                navController.navigate(Screen.ForYou.route)
+        BottomNavBar(
+            onForYouClick = {
+                navController.navigate(Screen.ForYou.route)
                             },
-                            onSearchClick = {
-                                navController.navigate(Screen.Search.route)
+            onSearchClick = {
+                navController.navigate(Screen.Search.route)
                             },
-                            onSavedClick = {
-                                navController.navigate(Screen.Saved.route)
-                            },
-                            onSettingsClick = {
-                                navController.navigate(Screen.Settings.route)
-                            }
-                        )
-                    }
-                }
-
-
-
-
-
-/*
-@Composable
-fun CreateShowRecipeScreen(navController: NavController) {
-    ShowRecipeLayout(navController)
-}
-
-@Preview
-@Composable
-fun CreateShowRecipePreview() {
-val navController: NavController = rememberNavController()
-
-    MatappTheme {
-        CreateShowRecipeScreen(navController = navController)
+            onSavedClick = {
+                navController.navigate(Screen.Saved.route)
+                           },
+            onSettingsClick = {
+                navController.navigate(Screen.Settings.route)
+            }
+        )
     }
 }
 
-*/

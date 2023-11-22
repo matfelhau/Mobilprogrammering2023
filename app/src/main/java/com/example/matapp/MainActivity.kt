@@ -131,7 +131,15 @@ class MainActivity : ComponentActivity() {
                         ProfilePictureLayout(navController)
                     }
                     composable(Screen.Recipe.route) {
-                        ShowRecipeLayout(navController)
+                        val testRecipe = Recipe(
+                            title = "Test recipe title",
+                            cookTime = "30",
+                            difficulty = "Easy",
+                            isVegan = false,
+                            spiceLevel = "Medium"
+
+                        )
+                        ShowRecipeLayout(navController, recipe = testRecipe)
                     }
                 }
             }
