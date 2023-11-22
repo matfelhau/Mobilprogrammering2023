@@ -13,6 +13,11 @@
         android:theme="@style/Theme.Matapp"
         tools:targetApi="31">
         <activity
+            android:name=".screens.ShowRecipeScreen"
+            android:exported="false"
+            android:label="@string/title_activity_show_recipe_screen"
+            android:theme="@style/Theme.Matapp" />
+        <activity
             android:name=".screens.CreateRecipeActivityCompose"
             android:exported="false"
             android:label="@string/title_activity_create_recipe_compose"
