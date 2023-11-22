@@ -76,7 +76,9 @@ fun SearchLayout(navController: NavController) {
                 searchViewModel.searchRecipes(it)
             },
             label = { Text(text = "Search for recipes") },
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth()
         )
 
         Column {
