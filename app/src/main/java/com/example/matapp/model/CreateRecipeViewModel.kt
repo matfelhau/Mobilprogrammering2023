@@ -1,5 +1,6 @@
 package com.example.matapp.model
 
+import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.database.FirebaseDatabase
@@ -9,6 +10,8 @@ import kotlinx.coroutines.launch
 class CreateRecipeViewModel : ViewModel() {
     private val database = FirebaseDatabase.getInstance().getReference("recipes")
     private val _recipeUpdateStatus = MutableStateFlow<String?>(null)
+    private val _addedIngredients = mutableStateListOf<String>()
+    val addedIngredients: List<String> get() = _addedIngredients
     fun initializeRecipe(userId: String?, recipeId: String) {
         val initialRecipeData = mapOf(
             "userId" to userId,
@@ -27,6 +30,9 @@ class CreateRecipeViewModel : ViewModel() {
                 "quantity" to quantity,
                 "unit" to measuringUnit
             )
+
+            _addedIngredients.add("$ingredient, $quantity, $measuringUnit")
+
             database.child(recipeId).child("ingredients").push().setValue(ingredientData)
                 .addOnSuccessListener {
                     _recipeUpdateStatus.value = "Ingredient added successfully"
@@ -59,6 +65,7 @@ class CreateRecipeViewModel : ViewModel() {
         database.child(recipeId).updateChildren(recipeData)
             .addOnSuccessListener {
                 _recipeUpdateStatus.value = "Recipe created successfully!"
+                _addedIngredients.clear()
             }
             .addOnFailureListener { exception ->
                 _recipeUpdateStatus.value = "Failed to create recipe: ${exception.message}"

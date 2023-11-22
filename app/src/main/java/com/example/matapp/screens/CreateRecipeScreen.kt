@@ -171,7 +171,7 @@ fun CreateRecipeLayout(
             Spacer(modifier = Modifier.height(16.dp))
 
             LazyColumn {
-                items(addedIngredients.toList()) { ingredient ->
+                items(recipeViewModel.addedIngredients) { ingredient ->
                     Text(
                         text = ingredient,
                         modifier = Modifier.fillMaxWidth(),
