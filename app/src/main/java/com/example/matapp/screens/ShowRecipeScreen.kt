@@ -37,9 +37,6 @@ fun ShowRecipeLayout(navController: NavController) {
             }
         )
 
-
-
-
         Spacer(modifier = Modifier.weight(1f))
         BottomNavBar(
             onForYouClick = {

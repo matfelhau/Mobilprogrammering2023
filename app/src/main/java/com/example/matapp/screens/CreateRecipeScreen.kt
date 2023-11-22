@@ -1,4 +1,3 @@
-
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -366,10 +365,10 @@ fun CreateRecipeLayout(
 
         Button(
             onClick = {
-                if (title.isEmpty()) Utility.showError(context, "Please enter a title.")
-                if (cookTime.isEmpty()) Utility.showError(context, "Please enter a cook time.")
-                if (selectedDifficulty.isEmpty()) Utility.showError(context, "Please choose a difficulty.")
-                if (selectedSpiceLevel.isEmpty()) Utility.showError(context, "Please choose a spice level.")
+                if (title.isEmpty()) Utility.showMessage(context, "Please enter a title.")
+                if (cookTime.isEmpty()) Utility.showMessage(context, "Please enter a cook time.")
+                if (selectedDifficulty.isEmpty()) Utility.showMessage(context, "Please choose a difficulty.")
+                if (selectedSpiceLevel.isEmpty()) Utility.showMessage(context, "Please choose a spice level.")
 
                 val allergens = mapOf(
                     "gluten" to checkboxGlutenState,

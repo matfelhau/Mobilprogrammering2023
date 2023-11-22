@@ -1,6 +1,8 @@
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,6 +22,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,11 +37,12 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.matapp.R
 import com.example.matapp.Utility
+import com.example.matapp.model.LoginViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.database.FirebaseDatabase
+
 
 class LoginScreen : ComponentActivity() {
     private lateinit var auth: FirebaseAuth
@@ -46,22 +50,47 @@ class LoginScreen : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         auth = FirebaseAuth.getInstance()
         super.onCreate(savedInstanceState)
+        val loginViewModel: LoginViewModel by viewModels()
+
+        setContent {
+            val navController = rememberNavController()
+            LoginScreen(
+                navController = navController,
+                loginViewModel = loginViewModel
+            )
+        }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel) {
     val context = LocalContext.current
     var email by remember { mutableStateOf(TextFieldValue("")) }
     var password by remember { mutableStateOf(TextFieldValue("")) }
-    val database = FirebaseDatabase.getInstance().getReference("users")
     val auth = FirebaseAuth.getInstance()
-
-
     val currentUser = auth.currentUser
-    if (currentUser != null) {
-        navController.navigate(Screen.ForYou.route)
+
+    val uiState by loginViewModel.uiState.collectAsState()
+
+    when (uiState) {
+        is LoginViewModel.UiState.Success -> {
+            navController.navigate(Screen.ForYou.route)
+            loginViewModel.resetUiState()
+        }
+        is LoginViewModel.UiState.Error -> {
+            Utility.showMessage(context, (uiState as LoginViewModel.UiState.Error).message)
+            loginViewModel.resetUiState()
+        }
+        is LoginViewModel.UiState.RegistrationSuccess -> {
+            Utility.showMessage(context, Utility.VERIFY_EMAIL)
+        }
+        LoginViewModel.UiState.Loading -> {
+
+        }
+        LoginViewModel.UiState.Idle -> {
+
+        }
     }
 
     Column (
@@ -126,17 +155,12 @@ fun LoginScreen(navController: NavController) {
                     val emailText = email.text
 
                     if (emailText.isEmpty()) {
-                        Utility.showError(context, "Please enter an email address.")
+                        Utility.showMessage(context, Utility.ENTER_EMAIL)
+                    } else if (currentUser?.isEmailVerified == false) {
+                        Utility.showMessage(context, Utility.VERIFY_EMAIL)
                     } else {
-                        auth.sendPasswordResetEmail(emailText).addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                Utility.showLogcatDebug("Email sent successfully.")
-                                Utility.showError(context,"Password reset email sent!")
-                            } else {
-                                Utility.showLogcatError("Error sending password reset email. ${task.exception}")
-                                Utility.showError(context,"Error sending password reset email.")
-                            }
-                        }
+                        loginViewModel.resetPassword(emailText)
+                        Utility.showMessage(context, Utility.CHECK_EMAIL)
                     }
                 },
                 modifier = Modifier
@@ -158,37 +182,10 @@ fun LoginScreen(navController: NavController) {
                     val passwordText = password.text
 
                     if (emailText.isNotEmpty() && passwordText.isNotEmpty()) {
-                        auth.createUserWithEmailAndPassword(emailText, passwordText)
-                            .addOnCompleteListener() { task ->
-                                if (task.isSuccessful) {
-                                    Utility.showLogcatDebug("Successfully created an account.")
-                                    val user = auth.currentUser
-                                    user?.let {
-                                        val userId = it.uid
-                                        val userEmail = it.email ?: ""
-                                        val userData = mapOf("email" to userEmail)
-                                        database.child(userId).setValue(userData)
-                                    }
-                                    user?.sendEmailVerification()?.addOnSuccessListener {
-                                        Utility.showError(context,"Account registered, please verify your email.")
-                                    }?.addOnFailureListener {
-                                        Utility.showError(context,"Failed to send verification email.")
-                                    }
-                                } else {
-                                    when (task.exception) {
-                                        is FirebaseAuthUserCollisionException -> {
-                                            Utility.showError(context,"This email is already in use.")
-                                        }
-
-                                        else -> {
-                                            Utility.showLogcatWarning("Failed to register user")
-                                            Utility.showError(context,"Authentication failed. ${task.exception}")
-                                        }
-                                    }
-                                }
-                            }
+                        loginViewModel.registerUser(emailText, passwordText)
+                        Utility.showMessage(context, Utility.USER_FEEDBACK)
                     } else {
-                        Utility.showError(context,"Please enter email and password")
+                        Utility.showMessage(context,Utility.ENTER_EMAIL_AND_PASSWORD)
                     }
                 },
                 modifier = Modifier
@@ -211,23 +208,10 @@ fun LoginScreen(navController: NavController) {
                 val passwordText = password.text
 
                 if (emailText.isNotEmpty() && passwordText.isNotEmpty()) {
-                    auth.signInWithEmailAndPassword(emailText, passwordText)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                val user = auth.currentUser
-                                if (user?.isEmailVerified == true) {
-                                    Utility.showError(context,"Success!")
-                                    navController.navigate(Screen.ForYou.route)
-                                }
-                                else {
-                                    Utility.showError(context,"Please verify your email before logging in.")
-                                }
-                            } else {
-                                Utility.showError(context,"Fail!: ${task.exception?.message}")
-                            }
-                        }
-                } else {
-                    Utility.showError(context,"Please enter email and password.")
+                    loginViewModel.logIn(emailText, passwordText)
+                }
+                else {
+                    Utility.showMessage(context, Utility.INPUT_FEEDBACK)
                 }
             },
             modifier = Modifier

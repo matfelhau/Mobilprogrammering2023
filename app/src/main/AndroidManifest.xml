@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,22 +15,17 @@
         android:theme="@style/Theme.Matapp"
         tools:targetApi="31">
         <activity
-            android:name=".screens.CreateRecipeActivityCompose"
-            android:exported="false"
-            android:label="@string/title_activity_create_recipe_compose"
-            android:theme="@style/Theme.Matapp" />
-        <activity
-            android:name=".SettingsActivityCompose"
+            android:name=".screens.SettingsCompose"
             android:exported="false"
             android:label="@string/title_activity_settings_compose"
             android:theme="@style/Theme.Matapp" />
         <activity
-            android:name=".SearchActivityCompose"
+            android:name=".screens.SearchCompose"
             android:exported="false"
             android:label="@string/title_activity_search_compose"
             android:theme="@style/Theme.Matapp" />
         <activity
-            android:name=".SavedActivityCompose"
+            android:name=".screens.SavedCompose"
             android:exported="false"
             android:label="@string/title_activity_saved_compose"
             android:theme="@style/Theme.Matapp" />
@@ -37,9 +34,6 @@
             android:exported="false"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.Matapp" />
-        <activity android:name=".DatabaseTestActivity" />
-        <activity android:name=".DashboardActivity" />
-        <activity android:name=".CreateRecipeActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

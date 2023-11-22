@@ -4,6 +4,9 @@ import BottomNavBar
 import Screen
 import SearchViewModel
 import TopNavBar
+import android.os.Bundle
+import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -31,6 +34,17 @@ import androidx.navigation.compose.rememberNavController
 import com.example.matapp.R
 import com.example.matapp.Utility
 import com.example.matapp.ui.theme.MatappTheme
+
+class SearchCompose : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setContent {
+            val navController = rememberNavController()
+            SearchLayout(navController = navController)
+        }
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -77,7 +91,7 @@ fun SearchLayout(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally) {
             Button(
                 onClick = {
-                          Utility.showError(context = context, "Coming soon!")
+                          Utility.showMessage(context = context, "Coming soon!")
                 },
                 modifier = Modifier
                     .padding(20.dp)

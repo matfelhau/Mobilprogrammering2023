@@ -1,6 +1,7 @@
 
 import androidx.lifecycle.ViewModel
 import com.example.matapp.Recipe
+import com.example.matapp.Utility
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -30,7 +31,7 @@ class SearchViewModel : ViewModel() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle possible errors
+                Utility.showLogcatError("Error in searching for recipes: ${error.message}")
             }
         })
     }

@@ -1,3 +1,6 @@
+import android.os.Bundle
+import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -17,6 +20,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.matapp.Utility
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -24,6 +28,17 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+
+class ProfileCompose : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setContent {
+            val navController = rememberNavController()
+            ProfilePictureLayout(navController = navController)
+        }
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,7 +61,7 @@ fun ProfilePictureLayout(navController: NavController) {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Utility.showError(context = context, "Failed to read username")
+                Utility.showMessage(context = context, "Failed to read username")
             }
         }
 
@@ -75,7 +90,7 @@ fun ProfilePictureLayout(navController: NavController) {
                     onClick = {
                         saveUsernameToDatabase(changeUsername, currentUser?.uid)
                         navController.navigate(Screen.ForYou.route)
-                        Utility.showError(context = context, "Username saved!")
+                        Utility.showMessage(context = context, "Username saved!")
                     },
                     content = {
                         Icon(imageVector = Icons.Default.Done, "Save")

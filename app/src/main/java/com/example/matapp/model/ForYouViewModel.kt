@@ -54,17 +54,11 @@ class ForYouViewModel : ViewModel() {
         val currentRecipe = _recipes.value?.getOrNull(_currentRecipeIndex.value!!)
         if (currentRecipe != null) {
             val userRecipesRef = database.child("users").child(userId).child("saved_recipes")
+
             val recipeId = userRecipesRef.push().key
             if (recipeId != null) {
                 userRecipesRef.child(recipeId).setValue(currentRecipe)
             }
-        }
-    }
-
-    fun incrementCurrentRecipeIndex() {
-        if (!_recipes.value.isNullOrEmpty()) {
-            val newIndex = (_currentRecipeIndex.value!! + 1) % _recipes.value!!.size
-            _currentRecipeIndex.value = newIndex
         }
     }
 }

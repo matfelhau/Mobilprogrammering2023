@@ -3,6 +3,9 @@ package com.example.matapp.screens
 import BottomNavBar
 import Screen
 import TopNavBar
+import android.os.Bundle
+import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -39,8 +42,23 @@ import com.example.matapp.Utility
 import com.example.matapp.model.SavedRecipesViewModel
 import com.example.matapp.ui.theme.MatappTheme
 
+class SavedCompose : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setContent {
+            val navController = rememberNavController()
+            val savedRecipesViewModel = SavedRecipesViewModel()
+            SavedLayout(
+                navController = navController,
+                savedRecipesViewModel = savedRecipesViewModel)
+        }
+    }
+}
+
 @Composable
 fun SavedLayout(navController: NavController, savedRecipesViewModel: SavedRecipesViewModel) {
+    val context = LocalContext.current
     LaunchedEffect(Unit) {
         savedRecipesViewModel.loadSavedRecipesFromFirebase()
     }
@@ -62,7 +80,10 @@ fun SavedLayout(navController: NavController, savedRecipesViewModel: SavedRecipe
 
         LazyColumn {
             items(savedRecipesViewModel.savedRecipes.value) { recipe ->
-                SavedRecipeItem(recipe = recipe)
+                SavedRecipeItem(recipe = recipe, onDeleteClick = {
+                    savedRecipesViewModel.deleteRecipe(recipe)
+                    Utility.showMessage(context, "Recipe deleted")
+                })
             }
         }
         Spacer(modifier = Modifier.weight(1f))
@@ -85,7 +106,7 @@ fun SavedLayout(navController: NavController, savedRecipesViewModel: SavedRecipe
 }
 
 @Composable
-fun SavedRecipeItem(recipe: Recipe) {
+fun SavedRecipeItem(recipe: Recipe, onDeleteClick: () -> Unit) {
     val context = LocalContext.current
     Card(
         modifier = Modifier
@@ -122,7 +143,7 @@ fun SavedRecipeItem(recipe: Recipe) {
             Row {
                 Button(
                     onClick = {
-                        Utility.showError(context = context, "Coming soon!")
+                        Utility.showMessage(context = context, "Coming soon!")
                     }
                 ) {
                     Text(text = "View Recipe")
@@ -131,10 +152,7 @@ fun SavedRecipeItem(recipe: Recipe) {
                 Spacer(modifier = Modifier.width(200.dp))
 
                 IconButton(
-                    onClick = {
-                              Utility.showError(context = context, "Coming soon!")
-
-                    },
+                    onClick = onDeleteClick,
                     content = {
                         Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete saved recipe")
                     }

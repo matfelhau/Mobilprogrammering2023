@@ -8,7 +8,8 @@ data class Recipe(
     val isVegan: Boolean = false,
     val spiceLevel: String = "",
     val userId: String = "",
-    val imageResourceString: String = "picture_0"
+    val imageResourceString: String = "picture_0",
+    val recipeId: String = ""
 )
 
 data class Ingredient(

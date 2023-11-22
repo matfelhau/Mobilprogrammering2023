@@ -36,9 +36,17 @@ class SavedRecipesViewModel : ViewModel() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Utility.showLogcatError("Can't import data from database.")
+                    Utility.showLogcatError("Can't import data from database: ${error.message}")
                 }
             })
+        }
+    }
+
+
+    fun deleteRecipe(recipe: Recipe) {
+        userId?.let { uid ->
+            val userRecipeRef = database.child(uid).child("saved_recipes")
+            userRecipeRef.child(recipe.recipeId).removeValue()
         }
     }
 }

@@ -3,6 +3,9 @@ package com.example.matapp.screens
 import BottomNavBar
 import Screen
 import TopNavBar
+import android.os.Bundle
+import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,10 +33,23 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.matapp.DatabaseUtils
+import com.example.matapp.MainActivity
 import com.example.matapp.R
 import com.example.matapp.Utility
 import com.example.matapp.ui.theme.MatappTheme
 import com.google.firebase.auth.FirebaseAuth
+
+class SettingsCompose : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        MainActivity.createNotificationChannel(this)
+
+        setContent {
+            val navController = rememberNavController()
+            SettingsLayout(navController = navController)
+        }
+    }
+}
 
 @Composable
 fun SettingsLayout(navController: NavController) {
@@ -110,12 +126,12 @@ fun SettingsLayout(navController: NavController) {
                 onClick = {
                           auth.sendPasswordResetEmail(auth.currentUser?.email ?: "").addOnCompleteListener {
                               if (it.isSuccessful) {
-                                  Utility.showLogcatDebug("Email sent successfully.")
-                                  Utility.showError(context, "Password reset email sent!.")
+                                  Utility.showLogcatDebug(Utility.RESET_MAIL_MESSAGE)
+                                  Utility.showMessage(context, Utility.RESET_MAIL_MESSAGE)
                               } else {
-                                  Utility.showLogcatError("Error sending password reset email.")
+                                  Utility.showLogcatError(Utility.ERROR_SENDING_RESET_MAIL)
                                   it.exception
-                                  Utility.showError(context, "Error sending password reset email.")
+                                  Utility.showMessage(context, Utility.ERROR_SENDING_RESET_MAIL)
                               }
                           }
                 },
@@ -127,7 +143,7 @@ fun SettingsLayout(navController: NavController) {
 
             Button(
                 onClick = {
-                    Utility.showError(context, "Coming soon!")
+                    Utility.showMessage(context, "Coming soon!")
                 },
                 modifier = Modifier
                     .padding(8.dp)
@@ -158,8 +174,18 @@ fun SettingsLayout(navController: NavController) {
                 }) {
                 Text(text = "Delete all recipes")
             }
-        }
 
+            Button(
+                onClick = {
+                    Utility.showLogcatDebug("Button clicked")
+                    MainActivity.createNotificationChannel(context)
+                    MainActivity.showNotification(context)
+                }
+            ) {
+                Text(text = "Notification test")
+            }
+
+        }
         Spacer(modifier = Modifier.weight(1f))
         BottomNavBar(
             onForYouClick = {
