@@ -74,7 +74,7 @@ fun ProfileLayout(navController: NavController) {
             .padding(16.dp)
     ) {
         TopAppBar(
-            title = { Text("Profile Picture") },
+            title = { Text("Profile Page") },
             navigationIcon = {
                 IconButton(
                     onClick = {
