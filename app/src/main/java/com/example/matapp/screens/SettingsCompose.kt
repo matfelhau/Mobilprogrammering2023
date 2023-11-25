@@ -32,11 +32,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.matapp.DatabaseUtils
 import com.example.matapp.MainActivity
 import com.example.matapp.R
-import com.example.matapp.Utility
 import com.example.matapp.ui.theme.MatappTheme
+import com.example.matapp.utility.DatabaseUtils
+import com.example.matapp.utility.Utility
 import com.google.firebase.auth.FirebaseAuth
 
 class SettingsCompose : AppCompatActivity() {

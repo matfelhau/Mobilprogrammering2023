@@ -1,4 +1,4 @@
-package com.example.matapp
+package com.example.matapp.utility
 
 import android.content.ContentValues.TAG
 import android.content.Context

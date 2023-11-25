@@ -37,10 +37,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.matapp.Recipe
-import com.example.matapp.Utility
 import com.example.matapp.model.SavedRecipesViewModel
 import com.example.matapp.ui.theme.MatappTheme
+import com.example.matapp.utility.Recipe
+import com.example.matapp.utility.Utility
 
 class SavedCompose : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

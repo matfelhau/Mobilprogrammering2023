@@ -1,4 +1,4 @@
-package com.example.matapp
+package com.example.matapp.utility
 
 data class Recipe(
     val title: String = "",

@@ -24,15 +24,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.matapp.Recipe
-import com.google.firebase.auth.FirebaseAuth
+import com.example.matapp.utility.Recipe
 
 
 
 @Composable
 fun ShowRecipeLayout(navController: NavController, recipe: Recipe) {
-    val auth = FirebaseAuth.getInstance()
-
     val customTextStyle = TextStyle(
         fontSize = 20.sp,
         fontWeight = FontWeight.Bold,

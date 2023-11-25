@@ -39,8 +39,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.matapp.R
-import com.example.matapp.Utility
 import com.example.matapp.model.LoginViewModel
+import com.example.matapp.utility.Utility
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -185,7 +185,7 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel) {
                         loginViewModel.registerUser(emailText, passwordText)
                         Utility.showMessage(context, Utility.USER_FEEDBACK)
                     } else {
-                        Utility.showMessage(context,Utility.ENTER_EMAIL_AND_PASSWORD)
+                        Utility.showMessage(context, Utility.ENTER_EMAIL_AND_PASSWORD)
                     }
                 },
                 modifier = Modifier

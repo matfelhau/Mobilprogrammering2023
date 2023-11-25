@@ -1,7 +1,7 @@
 
 import androidx.lifecycle.ViewModel
-import com.example.matapp.Recipe
-import com.example.matapp.Utility
+import com.example.matapp.utility.Recipe
+import com.example.matapp.utility.Utility
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference

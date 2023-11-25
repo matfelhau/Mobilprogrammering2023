@@ -50,9 +50,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.matapp.R
-import com.example.matapp.Recipe
-import com.example.matapp.Utility
 import com.example.matapp.model.ForYouViewModel
+import com.example.matapp.utility.Recipe
+import com.example.matapp.utility.Utility
 import com.google.firebase.auth.FirebaseAuth
 
 

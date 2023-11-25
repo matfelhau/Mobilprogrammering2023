@@ -32,8 +32,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.matapp.R
-import com.example.matapp.Utility
 import com.example.matapp.ui.theme.MatappTheme
+import com.example.matapp.utility.Utility
 
 class SearchCompose : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

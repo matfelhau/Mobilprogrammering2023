@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.matapp.Utility
+import com.example.matapp.utility.Utility
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -35,14 +35,14 @@ class ProfileCompose : AppCompatActivity() {
 
         setContent {
             val navController = rememberNavController()
-            ProfilePictureLayout(navController = navController)
+            ProfileLayout(navController = navController)
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfilePictureLayout(navController: NavController) {
+fun ProfileLayout(navController: NavController) {
     val context = LocalContext.current
     var changeUsername by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }

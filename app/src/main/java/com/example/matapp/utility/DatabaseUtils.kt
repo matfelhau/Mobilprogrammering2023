@@ -1,4 +1,4 @@
-package com.example.matapp
+package com.example.matapp.utility
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

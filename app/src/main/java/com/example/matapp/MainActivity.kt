@@ -2,7 +2,7 @@ package com.example.matapp
 
 import CreateRecipeLayout
 import LoginScreen
-import ProfilePictureLayout
+import ProfileLayout
 import Screen
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -27,6 +27,8 @@ import com.example.matapp.screens.SearchLayout
 import com.example.matapp.screens.SettingsLayout
 import com.example.matapp.screens.ShowRecipeLayout
 import com.example.matapp.ui.theme.MatappTheme
+import com.example.matapp.utility.Recipe
+import com.example.matapp.utility.Utility
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
@@ -128,7 +130,7 @@ class MainActivity : ComponentActivity() {
                         CreateRecipeLayout(navController, newRecipeId, userId, createRecipeViewModel)
                     }
                     composable(Screen.Profile.route) {
-                        ProfilePictureLayout(navController)
+                        ProfileLayout(navController)
                     }
                     composable(Screen.Recipe.route) {
                         val testRecipe = Recipe(
