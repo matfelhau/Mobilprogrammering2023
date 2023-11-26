@@ -65,24 +65,6 @@ dependencies {
     implementation("androidx.compose.ui:ui-test-junit4-android:1.5.4")
     implementation("androidx.test.ext:junit-ktx:1.1.5")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4-android:1.5.4")
-
-    // Required -- JUnit 4 framework
-    testImplementation("junit:junit:4.13.2")
-
-    // Optional -- Robolectric environment
-    testImplementation("androidx.test:core:1.5.0")
-
-    // Optional -- Mockito framework
-    testImplementation("org.mockito:mockito-core:5.3.1")
-
-    // Optional -- mockito-kotlin
-    testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
-
-    // Optional -- Mockk framework
-    testImplementation("io.mockk:mockk:1.13.8")
-
     val navVersion = "2.7.4"
     val lifecycleVersion = "2.6.2"
 
@@ -111,11 +93,4 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
-
-    // Tests
-    testImplementation("com.google.truth:truth:1.0.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
